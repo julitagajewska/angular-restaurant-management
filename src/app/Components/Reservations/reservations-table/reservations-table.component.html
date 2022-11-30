@@ -1,0 +1,27 @@
+<div class="reservations-table__container">
+  <h3 class="title">Rezerwacje</h3>
+  <cdk-virtual-scroll-viewport itemSize ="20" tvsItemSize="48" headerHeight="56">
+    <div class="reservations__table">
+
+      <div class="table-header row">
+        <div class="id cell"> ID </div>
+          <div class="name cell"> Imie </div>
+          <div class="surname cell"> Nazwisko </div>
+          <div class="date cell"> Data </div>
+          <div class="time cell"> Godzina </div>
+          <div class="edit cell"></div>
+          <div class="delete cell"></div>
+          <div class="details cell"></div>
+      </div>
+
+      <div>
+        <app-reservations-table-row
+          [reservationParentData]="reservation"
+          (deleteReservationId)="deleteReservation($event)"
+          *cdkVirtualFor="let reservation of reservations">
+        </app-reservations-table-row>
+      </div>
+
+    </div>
+  </cdk-virtual-scroll-viewport>
+</div>

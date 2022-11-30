@@ -1,0 +1,15 @@
+<div class="reservations-form__container">
+  <div class="reservation__header">
+    <h3 class="reservation_title">Nowa rezerwacja</h3>
+  </div>
+    <form class="reservation__form" [formGroup]="formModel" (ngSubmit)='addReservation()'>
+      <input type="text" formControlName="name" placeholder="Imię">
+      <input type="text" formControlName="surname" placeholder="Nazwisko">
+      <input type="tel" formControlName="phone" placeholder="Numer telefonu">
+      <input type="date" formControlName="date" placeholder="Data">
+      <input type="time" formControlName="time" placeholder="Godzina">
+      <input type="number" formControlName="table" placeholder="Numer stolika">
+      <textarea formControlName="additionalInformation" placeholder="Dodatkowe informacje"></textarea>
+      <input type="submit" value="Dodaj">
+    </form>
+</div>

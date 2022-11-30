@@ -1,0 +1,19 @@
+<header>
+
+  <ng-container *ngIf="isLogged">
+    <a routerLink="user_profile" class="header__left-link">Profil użytkownika</a>
+
+    <div class="header__button-group">
+      <a routerLink="reservations">Rezerwacja</a>
+      <a routerLink="home" class="active">Strona główna</a>
+      <a routerLink="orders">Zamówienie</a>
+    </div>
+
+    <button class="header__right-button">Wyloguj</button>
+  </ng-container>
+
+  <ng-container *ngIf="!isLogged">
+    <button>Zaloguj się</button>
+  </ng-container>
+
+</header>

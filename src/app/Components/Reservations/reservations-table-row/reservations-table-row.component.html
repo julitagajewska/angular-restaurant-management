@@ -1,0 +1,30 @@
+<div>
+
+  <div class="overview row">
+    <div class="id cell"> {{ reservation.reservationId }} </div>
+    <div class="name cell"> {{ reservation.reservationName }} </div>
+    <div class="surname cell"> {{ reservation.reservationSurname }} </div>
+    <div class="date cell"> {{ reservation.reservationDate | date: 'dd-LL-YYYY' }} </div>
+    <div class="time cell"> {{ reservation.reservationDate | date: 'HH:mm' }} </div>
+    <div class="edit cell"><button><i-bs name="pencil-fill"></i-bs></button></div>
+    <div class="delete cell"><button (click)="deleteReservationEmitter(reservation.reservationId)"><i-bs name="trash2-fill"></i-bs></button></div>
+    <div class="details cell"><button (click)="detailsVisible = !detailsVisible"><i-bs name="chevron-down"></i-bs></button></div>
+  </div>
+
+  <div class="reservation-details row" *ngIf="detailsVisible">
+    <div class="left-cell">
+      <p><b>Imię:</b> {{ reservation.reservationName }} </p>
+      <p><b>Nazwisko:</b> {{ reservation.reservationSurname }} </p>
+      <p><b>Numer telefonu:</b> {{ reservation.reservationPhone }} </p>
+    </div>
+    <div class="middle-cell">
+      <p><b>Data:</b> {{ reservation.reservationDate | date: 'dd-LL-YYYY' }} </p>
+      <p><b>Godzina:</b> {{ reservation.reservationDate | date: 'HH:mm' }} </p>
+      <p><b>Numer stolika:</b> {{ reservation.reservationTableNumber }} </p>
+    </div>
+    <div class="right-cell">
+      <p><b>Dodatkowe informacje:</b> {{ reservation.reservationAdditionalInfo }} </p>
+
+    </div>
+  </div>
+</div>
