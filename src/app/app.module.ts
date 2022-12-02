@@ -28,6 +28,8 @@ import { ReservationEditComponent } from './Components/Reservations/reservation-
 import { DatePipe } from '@angular/common';
 import { ClickOutsideDirective } from './Directives/click-outside.directive';
 import { ProfileChangePasswordComponent } from './Components/User-profile/profile-change-password/profile-change-password.component';
+import { ProfileDeleteSuccessComponent } from './Components/User-profile/profile-delete-success/profile-delete-success.component';
+import { WelcomeComponent } from './Components/General/welcome/welcome.component';
 
 
 @NgModule({
@@ -50,6 +52,8 @@ import { ProfileChangePasswordComponent } from './Components/User-profile/profil
     ReservationEditComponent,
     ClickOutsideDirective,
     ProfileChangePasswordComponent,
+    ProfileDeleteSuccessComponent,
+    WelcomeComponent,
   ],
   imports: [
     BrowserModule,

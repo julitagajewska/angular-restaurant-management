@@ -5,7 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Reservation, ReservationType } from 'src/app/Models/reservation';
 import { ReservationsServiceService } from 'src/app/Services/reservations-service.service';
 import { DatePipe } from '@angular/common';
-import {Location} from '@angular/common';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-reservation-edit',

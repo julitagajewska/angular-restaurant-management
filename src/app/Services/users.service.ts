@@ -10,10 +10,13 @@ import { pass } from 'ngx-bootstrap-icons';
 export class UsersService {
 
   private url: string = "http://localhost:7777/users";
-  private _isLoggedIn: boolean = true;
   private _defaultUserImage: string = "https://plusvalleyadventure.com/wp-content/uploads/2020/11/default-user-icon-8.jpg";
+
+  private _isLoggedIn: boolean = true;
   private _loggedInChange: Subject<boolean> = new Subject<boolean>();
-  private _loggedInUser: User | null = null;
+
+  private _loggedInUser!: User;
+  private _userChange: Subject<User> = new Subject<User>();
 
   users!: User[];
 
@@ -27,11 +30,18 @@ export class UsersService {
       this._isLoggedIn = value;
     });
 
+
+    this.userChange.subscribe((value) => {
+      this._loggedInUser = value;
+    });
+
+
     this.loadLoggedInUser().subscribe(response => {
       console.log(response);
       if(response == null){
-        this.logOut();
-      } else {
+        this._loggedInChange.next(false);
+      } else if (response != null) {
+        console.log(response);
         this._loggedInUser = new User(
           response.userId,
           response.username,
@@ -49,11 +59,20 @@ export class UsersService {
     });
   }
 
+  get userChange(): Observable<User> {
+    return this._userChange.asObservable();
+  }
+
+
   loadLoggedInUser(): Observable<User> {
     let url: string = "http://localhost:7777/loggedIn";
     return this.http.get<User>(url).pipe(
       tap(_ => this.log(`fetched logged in user`)),
       catchError(this.handleError<User>('getLoggedIn')));
+  }
+
+  userChangedValue(user: User): void{
+    this._userChange.next(user);
   }
 
   get loggedInChange(): Observable<boolean> {
@@ -71,8 +90,12 @@ export class UsersService {
     return this._defaultUserImage;
   }
 
-  get loggedInUser(): User | null {
+  get loggedInUser(): User {
     return this._loggedInUser;
+  }
+
+  public set loggedInUser(value: User) {
+    this._loggedInUser = value;
   }
 
   logIn(username: string) {
@@ -101,7 +124,6 @@ export class UsersService {
 
   logOut() {
     this._loggedInChange.next(false);
-    this._loggedInUser = null;
     this.deleteLoggedInUser().subscribe(response => {
       console.log("Logged out");
     });
@@ -115,12 +137,30 @@ export class UsersService {
     );
   }
 
+  deleteUserAccount(user: User): Observable<void>{
+    const url = `http://localhost:7777/users/${user.userId}`;
+    return this.http.delete<void>(url).pipe(
+      tap(_ => this.log(`Logged in user deleted`)),
+      catchError(this.handleError<any>('deleteLoggedIn'))
+    );
+  }
+
   deleteLoggedInUser(): Observable<void> {
     const url = `http://localhost:7777/loggedIn`;
     return this.http.delete<void>(url).pipe(
       tap(_ => this.log(`Logged in user deleted`)),
       catchError(this.handleError<any>('deleteLoggedIn'))
     );
+  }
+
+  deleteUser(user: User): void {
+    this.deleteUserAccount(user).subscribe(response => {
+      console.log(response);
+      this.deleteLoggedInUser().subscribe(r => {
+        console.log(response);
+        this.logOut();
+      })
+    })
   }
 
   checkLogInData(username: string, password: string): string{
@@ -175,10 +215,36 @@ export class UsersService {
     catchError(this.handleError<User[]>('addUser')));
   }
 
+  saveEditChanges(newUser: UserType): void {
+    this.editUser(newUser).subscribe(response => {
+      console.log(response);
+      this.editLoggedInUser(newUser).subscribe(r => {
+        let user = new User(
+          r.userId,
+          r.username,
+          r.mail,
+          r.phone,
+          r.password,
+          r.imageURL
+        );
+        this.loggedInUser = user;
+        this.userChangedValue(user);
+      })
+    })
+  }
+
   editUser(user: UserType): Observable<UserType> {
-    const url = `http://localhost:7777/user/${user.userId}`;
+    const url = `http://localhost:7777/users/${user.userId}`;
     return this.http.put<User>(url, user).pipe(
-      tap((newReservation: UserType) => this.log(`edited reservation w/ id=${user.userId}`)),
+      tap((newReservation: UserType) => this.log(`edited user w/ id=${user.userId}`)),
+      catchError(this.handleError<UserType>('editReservation'))
+    );
+  }
+
+  editLoggedInUser(user: UserType): Observable<UserType>{
+    const url = `http://localhost:7777/loggedIn/${user.userId}`;
+    return this.http.put<User>(url, user).pipe(
+      tap((newReservation: UserType) => this.log(`edited logged user w/ id=${user.userId}`)),
       catchError(this.handleError<UserType>('editReservation'))
     );
   }

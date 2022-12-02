@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { User, UserType } from 'src/app/Models/user';
 import { UsersService } from 'src/app/Services/users.service';
 
@@ -12,8 +13,14 @@ import { UsersService } from 'src/app/Services/users.service';
 export class ProfileComponent implements OnInit {
 
   private _editForm!: FormGroup;
-  private _user!: User | null;
+  private _editImageForm!: FormGroup;
+  private _user!: User;
+
   private _changesSavedAlert: boolean = false;
+  private _changeImageContainer: boolean = false;
+  private _toggleDelete: boolean = false;
+
+  private _userSubscription!: Subscription;
 
   constructor(
     private usersService: UsersService,
@@ -21,17 +28,25 @@ export class ProfileComponent implements OnInit {
 
     this._user = this.usersService.loggedInUser;
 
-    this._editForm= new FormGroup({
-      username: new FormControl(this._user?.username, Validators.compose([
+    this.userSubscription = this.usersService.userChange.subscribe(value => {
+      this.user = value;
+    });
+
+    this.editImageForm = new FormGroup({
+      imageURL: new FormControl('')
+    });
+
+    this.editForm = new FormGroup({
+      username: new FormControl(this.user?.username, Validators.compose([
         Validators.maxLength(10),
         Validators.minLength(5),
         Validators.required
       ])),
-      mail: new FormControl(this._user?.mail, Validators.compose([
+      mail: new FormControl(this.user?.mail, Validators.compose([
         Validators.required,
         Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")
       ])),
-      phone: new FormControl(this._user?.phone, Validators.compose([
+      phone: new FormControl(this.user?.phone, Validators.compose([
         Validators.required,
         Validators.pattern('^((\\+91-?)|0)?[0-9]{9}$')
       ]))
@@ -41,16 +56,52 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  get user(): User | null {
+  public get user(): User {
     return this._user;
   }
-  get editForm(): FormGroup {
+
+  public set user(value: User) {
+    this._user = value;
+  }
+
+  public get editForm(): FormGroup {
     return this._editForm;
+  }
+  public set editForm(value: FormGroup) {
+    this._editForm = value;
   }
 
   public get changesSavedAlert(): boolean {
     return this._changesSavedAlert;
   }
+
+  public get userSubscription(): Subscription {
+    return this._userSubscription;
+  }
+  public set userSubscription(value: Subscription) {
+    this._userSubscription = value;
+  }
+
+  public get changeImageContainer(): boolean {
+    return this._changeImageContainer;
+  }
+  public set changeImageContainer(value: boolean) {
+    this._changeImageContainer = value;
+  }
+
+  public get editImageForm(): FormGroup {
+    return this._editImageForm;
+  }
+  public set editImageForm(value: FormGroup) {
+    this._editImageForm = value;
+  }
+  public get toggleDelete(): boolean {
+    return this._toggleDelete;
+  }
+  public set toggleDelete(value: boolean) {
+    this._toggleDelete = value;
+  }
+
 
   getField(field: any): AbstractControl | null{
     return this.editForm.get(field);
@@ -62,9 +113,45 @@ export class ProfileComponent implements OnInit {
 
   editUser(): void {
     let newUser: UserType = {
-      userId: this.user?.userId,
-
+      userId: this.user.userId,
+      username: this.editForm.value.username,
+      mail: this.editForm.value.mail,
+      phone: this.editForm.value.phone,
+      password: this.user.password,
+      imageURL: this.user.imageURL
     }
+
+    this.usersService.saveEditChanges(newUser);
   }
 
+
+  editImage(): void {
+    let newUser: UserType = {
+      userId: this.user.userId,
+      username: this.user.username,
+      mail: this.user.mail,
+      phone: this.user.phone,
+      password: this.user.password,
+      imageURL: this.editImageForm.value.imageURL
+    }
+
+    this.usersService.saveEditChanges(newUser);
+  }
+
+  clickedOutside(): void {
+    this.changeImageContainer = false;
+  }
+
+  toggleImageChange(): void {
+    this.changeImageContainer = true;
+  }
+
+  toggleDeleteUser(): void {
+    this.toggleDelete = !this.toggleDelete;
+  }
+
+  deleteUser(): void {
+    this.usersService.deleteUser(this._user);
+    this.router.navigateByUrl('delete_success');
+  }
 }
