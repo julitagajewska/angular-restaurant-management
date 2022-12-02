@@ -5,7 +5,14 @@
     </div>
       <form class="login__form" [formGroup]="loginForm" (ngSubmit)='login()'>
         <input type="text" formControlName="username" placeholder="Nazwa użytkownika">
+        <div class="danger_alert" *ngIf="wrongUsername">
+          Podana nazwa użytkownika jest nieprawidłowa.
+        </div>
+
         <input type="password" formControlName="password" placeholder="Hasło">
+        <div class="danger_alert" *ngIf="wrongPassword">
+          Wprowadzono błędne hasło.
+        </div>
 
         <div class="login__button-group">
           <a [routerLink]="['../register']"><button class="login__register-button">Zarejestruj się</button></a>

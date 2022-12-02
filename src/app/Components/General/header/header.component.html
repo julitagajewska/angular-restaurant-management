@@ -9,7 +9,7 @@
       <a routerLink="orders">Zamówienie</a>
     </div>
 
-    <button class="header__right-button">Wyloguj</button>
+    <button class="header__right-button" (click)="logOut()">Wyloguj</button>
   </ng-container>
 
   <ng-container *ngIf="!isLoggedIn">

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { catchError, map, Observable, of, Subject, tap } from 'rxjs';
 import { User, UserType } from '../Models/user';
+import { pass } from 'ngx-bootstrap-icons';
 
 @Injectable({
   providedIn: 'root'
@@ -29,6 +30,36 @@ export class UsersService {
 
   logIn() {
     this.loggedInChange.next(true);
+  }
+
+  logOut() {
+    this.loggedInChange.next(false);
+  }
+
+  checkLogInData(username: string, password: string): string{
+    let usernames: string[] = [];
+    this.users.forEach(user => {
+      usernames.push(user.username);
+    })
+
+    if(usernames.includes(username) == false){
+      return 'noUserError';
+    }
+
+    let userPassword: string = '';
+
+    let user: User | any = this.users.filter(element => {
+      if(element.username == username){
+        userPassword = element.password;
+      }
+      return element.username == username;
+    });
+
+    if(userPassword == password ){
+        return 'success';
+    } else {
+        return 'wrongPasswordError';
+    }
   }
 
   addUser(user: UserType): Observable<UserType> {

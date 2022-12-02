@@ -20,4 +20,9 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  logOut(): void{
+    this.userService.logOut();
+    console.log("Próba wylogowania");
+  }
+
 }

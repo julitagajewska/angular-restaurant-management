@@ -10,6 +10,8 @@ import { UsersService } from 'src/app/Services/users.service';
 export class LoginComponent implements OnInit {
 
   loginForm!: FormGroup;
+  wrongUsername: boolean = false;
+  wrongPassword: boolean = false;
 
   constructor(private userService: UsersService) {
 
@@ -29,11 +31,32 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.userService.getUsers().subscribe(response => {
+      console.log(response);
+    });
   }
 
   login(): void {
-    console.log("User logged in");
-    this.userService.logIn();
+    let response: string = this.userService.checkLogInData(this.loginForm.value.username, this.loginForm.value.password);
+
+    console.log("Próbuję się zalogować.");
+
+    this.wrongUsername = false;
+    this.wrongPassword = false;
+
+    switch(response){
+      case 'noUserError':
+        this.wrongUsername = true;
+        break;
+      case 'wrongPasswordError':
+        this.wrongPassword = true;
+        break;
+      case 'success':
+        this.wrongUsername = false;
+        this.wrongPassword = false;
+        this.userService.logIn();
+        break;
+    }
   }
 
   get isLogedIn(): boolean {
