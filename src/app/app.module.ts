@@ -27,6 +27,7 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
 import { ReservationEditComponent } from './Components/Reservations/reservation-edit/reservation-edit.component';
 import { DatePipe } from '@angular/common';
 import { ClickOutsideDirective } from './Directives/click-outside.directive';
+import { ProfileChangePasswordComponent } from './Components/User-profile/profile-change-password/profile-change-password.component';
 
 
 @NgModule({
@@ -48,6 +49,7 @@ import { ClickOutsideDirective } from './Directives/click-outside.directive';
     ProfileDeleteComponent,
     ReservationEditComponent,
     ClickOutsideDirective,
+    ProfileChangePasswordComponent,
   ],
   imports: [
     BrowserModule,

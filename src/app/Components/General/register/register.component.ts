@@ -50,11 +50,11 @@ export class RegisterComponent implements OnInit {
      hasLowerCaseLetter('password'),
      hasSpecialCharacter('password')
     ]);
-   }
+  }
 
-   getField(field: any): AbstractControl | null{
+  getField(field: any): AbstractControl | null{
     return this.registerForm.get(field);
-   }
+  }
 
   ngOnInit(): void {
     this.getUsers();
@@ -81,7 +81,8 @@ export class RegisterComponent implements OnInit {
       username: this.registerForm.value.username,
       mail: this.registerForm.value.mail,
       phone: this.registerForm.value.phone,
-      password: this.registerForm.value.password
+      password: this.registerForm.value.password,
+      imageURL: this.userService.defaultUserImage
       }
 
       this.userService.addUser(newUser).subscribe(response => {

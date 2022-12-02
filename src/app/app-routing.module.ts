@@ -6,6 +6,7 @@ import { HomeComponent } from './Components/Home/home/home.component';
 import { OrdersComponent } from './Components/Orders/orders/orders.component';
 import { ReservationEditComponent } from './Components/Reservations/reservation-edit/reservation-edit.component';
 import { ReservationsComponent } from './Components/Reservations/reservations/reservations.component';
+import { ProfileChangePasswordComponent } from './Components/User-profile/profile-change-password/profile-change-password.component';
 import { ProfileComponent } from './Components/User-profile/profile/profile.component';
 
 const routes: Routes = [
@@ -16,7 +17,8 @@ const routes: Routes = [
   { path: "orders", component: OrdersComponent },
   { path: "user_profile", component: ProfileComponent },
   { path: "login", component: LoginComponent },
-  { path: "register", component: RegisterComponent }
+  { path: "register", component: RegisterComponent },
+  { path: "password_change", component: ProfileChangePasswordComponent }
 
 ];
 

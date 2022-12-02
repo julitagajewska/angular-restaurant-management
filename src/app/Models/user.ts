@@ -3,7 +3,8 @@ export type UserType = {
   username: string,
   mail:string,
   phone: string,
-  password: string
+  password: string,
+  imageURL?: string
 }
 
 export class User {
@@ -12,7 +13,8 @@ export class User {
     private _username: string,
     private _mail: string,
     private _phone: string,
-    private _password: string
+    private _password: string,
+    private _imageURL?: string
   ){}
 
   public get userId(): string {
@@ -49,5 +51,12 @@ export class User {
   }
   public set password(value: string) {
     this._password = value;
+  }
+
+  public get imageURL(): string | undefined {
+    return this._imageURL;
+  }
+  public set imageURL(value: string | undefined) {
+    this._imageURL = value;
   }
 }

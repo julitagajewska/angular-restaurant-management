@@ -8,16 +8,37 @@
         <div class="danger_alert" *ngIf="wrongUsername">
           Podana nazwa użytkownika jest nieprawidłowa.
         </div>
+        <div *ngIf="getField('username')?.errors && getField('username')?.touched">
+          <div *ngIf="getField('username')?.errors?.['required']" class="danger_alert">
+            Nazwa użytkownika jest wymagana
+          </div>
+          <div *ngIf="getField('username')?.errors?.['maxlength']" class="danger_alert">
+            Nazwa użytkownika jest za dłluga [5-10 znaków]
+          </div>
+          <div *ngIf="getField('username')?.errors?.['minlength']" class="danger_alert">
+            Nazwa użytkownika jest za krótka [5-10 znaków]
+          </div>
+        </div>
 
         <input type="password" formControlName="password" placeholder="Hasło">
         <div class="danger_alert" *ngIf="wrongPassword">
           Wprowadzono błędne hasło.
         </div>
+        <div *ngIf="getField('password')?.errors && getField('password')?.touched">
+          <div *ngIf="getField('password')?.errors?.['required']" class="danger_alert">
+            Hasło jest wymagane
+          </div>
+          <div *ngIf="getField('password')?.errors?.['maxlength']" class="danger_alert">
+            Hasło jest za dłlugie [5-10 znaków]
+          </div>
+          <div *ngIf="getField('password')?.errors?.['minlength']" class="danger_alert">
+            Hasło jest za krótkie [5-10 znaków]
+          </div>
+        </div>
 
         <div class="login__button-group">
           <a [routerLink]="['../register']"><button class="login__register-button">Zarejestruj się</button></a>
-          <!-- <input type="submit" value="Zaloguj" class="login__login-button" [disabled]="!loginForm.valid"> -->
-          <input type="submit" value="Zaloguj" class="login__login-button">
+          <input type="submit" value="Zaloguj" class="login__login-button" [disabled]="!loginForm.valid">
         </div>
       </form>
   </div>

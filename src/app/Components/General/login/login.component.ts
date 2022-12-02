@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { UsersService } from 'src/app/Services/users.service';
 
 @Component({
@@ -13,17 +14,18 @@ export class LoginComponent implements OnInit {
   wrongUsername: boolean = false;
   wrongPassword: boolean = false;
 
-  constructor(private userService: UsersService) {
+  constructor(
+    private userService: UsersService,
+    private router: Router) {
 
     this.loginForm = new FormGroup({
       username: new FormControl('', Validators.compose([
-        Validators.maxLength(25),
+        Validators.maxLength(10),
         Validators.minLength(5),
-        Validators.pattern('^(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9]+$'),
         Validators.required
       ])),
       password: new FormControl('', Validators.compose([
-        Validators.maxLength(25),
+        Validators.maxLength(10),
         Validators.minLength(5),
         Validators.required
       ])),
@@ -54,7 +56,8 @@ export class LoginComponent implements OnInit {
       case 'success':
         this.wrongUsername = false;
         this.wrongPassword = false;
-        this.userService.logIn();
+        this.userService.logIn(this.loginForm.value.username);
+        this.router.navigateByUrl('home');
         break;
     }
   }
@@ -62,5 +65,9 @@ export class LoginComponent implements OnInit {
   get isLogedIn(): boolean {
     return this.userService.isLoggedIn;
   }
+
+  getField(field: any): AbstractControl | null{
+    return this.loginForm.get(field);
+   }
 
 }
