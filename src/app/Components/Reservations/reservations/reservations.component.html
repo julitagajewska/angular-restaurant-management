@@ -1,4 +1,11 @@
 <div class="reservations__container">
-  <app-reservations-table [newReservationParentData]=""></app-reservations-table>
-  <app-reservations-form [newIdParentData]="newIndex"></app-reservations-form>
+    <app-reservations-table
+    [reservationsParentData]="reservations"
+    (deleteReservationId)="deleteReservation($event)">
+    </app-reservations-table>
+
+    <app-reservations-form
+    [newIdParentData]="newId"
+    (newReservation)="addReservation($event)">
+    </app-reservations-form>
 </div>

@@ -34,9 +34,9 @@ export class ReservationsFormComponent implements OnInit {
     let newDate = new Date(this.formModel.value.date);
     let timeArray = this.formModel.value.time.split(":");
     newDate.setHours(+timeArray[0],+timeArray[1]);
-    console.log(newDate);
+
     let newReservation: ReservationType = {
-      reservationId: this.newId,
+      reservationId: '',
       reservationName: this.formModel.value.name,
       reservationSurname: this.formModel.value.surname,
       reservationPhone: this.formModel.value.phone,

@@ -1,1 +1,17 @@
-<p>login works!</p>
+<div class="component__container">
+  <div class="login__container">
+    <div class="login__header">
+      <h3 class="login__title">Logowanie</h3>
+    </div>
+      <form class="login__form" [formGroup]="loginForm" (ngSubmit)='login()'>
+        <input type="text" formControlName="username" placeholder="Nazwa użytkownika">
+        <input type="password" formControlName="password" placeholder="Hasło">
+
+        <div class="login__button-group">
+          <a [routerLink]="['../register']"><button class="login__register-button">Zarejestruj się</button></a>
+          <!-- <input type="submit" value="Zaloguj" class="login__login-button" [disabled]="!loginForm.valid"> -->
+          <input type="submit" value="Zaloguj" class="login__login-button">
+        </div>
+      </form>
+  </div>
+</div>

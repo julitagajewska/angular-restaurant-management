@@ -11,7 +11,7 @@ export class ReservationsTableRowComponent implements OnInit {
   detailsVisible: boolean = false;
 
   @Input('reservationParentData') reservation!: Reservation;
-  @Output('deleteReservationId') deleteReservation:EventEmitter<string> = new EventEmitter();
+  @Output('deleteReservationId') deleteReservationIdEmitter: EventEmitter<string> = new EventEmitter();
 
   constructor() { }
 
@@ -21,7 +21,7 @@ export class ReservationsTableRowComponent implements OnInit {
   }
 
   deleteReservationEmitter(id: string): void {
-    this.deleteReservation.emit(id);
+    this.deleteReservationIdEmitter.emit(id);
   }
 
 }

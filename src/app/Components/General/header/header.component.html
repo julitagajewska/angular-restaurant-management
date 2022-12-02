@@ -1,6 +1,6 @@
 <header>
 
-  <ng-container *ngIf="isLogged">
+  <ng-container *ngIf="isLoggedIn">
     <a routerLink="user_profile" class="header__left-link">Profil użytkownika</a>
 
     <div class="header__button-group">
@@ -12,8 +12,9 @@
     <button class="header__right-button">Wyloguj</button>
   </ng-container>
 
-  <ng-container *ngIf="!isLogged">
-    <button>Zaloguj się</button>
+  <ng-container *ngIf="!isLoggedIn">
+    <h3>Ładna nazwa</h3>
+    <a routerLink="login" class="header__right-link">Zaloguj się</a>
   </ng-container>
 
 </header>

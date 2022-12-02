@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Reservation } from 'src/app/Models/reservation';
 import { ReservationsServiceService } from 'src/app/Services/reservations-service.service';
 
@@ -9,33 +9,15 @@ import { ReservationsServiceService } from 'src/app/Services/reservations-servic
 })
 export class ReservationsTableComponent implements OnInit {
 
-  reservation!: Reservation;
-  reservations!: Reservation[];
+  @Input('reservationsParentData') reservations!: Reservation[];
+  @Output('deleteReservationId') deleteReservationIdEmitter: EventEmitter<string> = new EventEmitter();
 
-  @Output('newId') newIdEmitter: EventEmitter<string> = new EventEmitter<string>();
-
-  constructor(private reservationsService: ReservationsServiceService) { }
+  constructor() { }
 
   ngOnInit(): void {
-    this.getReservations();
   }
 
-  deleteReservation(id: string):void {
-    console.log(`Usuwam ${id}`);
-    this.reservationsService.deleteReservation(id).subscribe(response => {
-      this.getReservations();
-    });
-
+  deleteReservation(id: string): void{
+    this.deleteReservationIdEmitter.emit(id);
   }
-
-  getReservations(): void {
-    this.reservationsService.getReservations().subscribe(reservations => {
-      this.reservations = reservations;
-    })
-  }
-
-  getNewId(): string {
-
-  }
-
 }

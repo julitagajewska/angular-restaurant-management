@@ -13,21 +13,6 @@ export class ReservationsServiceService {
 
   constructor(private http: HttpClient) { }
 
-  getNewIndex(){
-    // this.reservations = this.getReservations();
-    // let indexes: number[] = [];
-
-    // reservations.forEach(reservation => {
-    //   indexes.push(+reservation._reservationId);
-    // });
-
-    // indexes.sort(function(a, b){return a-b});
-
-    // return (indexes[indexes.length-1]+1).toString();
-
-
-  }
-
   public reservations():Reservation[]{
     return this._reservations;
   }
@@ -78,6 +63,15 @@ export class ReservationsServiceService {
       catchError(this.handleError<any>('updateHero'))
     );
   }
+
+  editReservation(reservation: ReservationType): Observable<ReservationType> {
+    const url = `http://localhost:7777/reservations/${reservation.reservationId}`;
+    return this.http.put<Reservation>(url, reservation).pipe(
+      tap((newReservation: ReservationType) => this.log(`edited reservation w/ id=${reservation.reservationId}`)),
+      catchError(this.handleError<ReservationType>('editReservation'))
+    );
+  }
+
 
   log(message: string): void{
     console.log(message);

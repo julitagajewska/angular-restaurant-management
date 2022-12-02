@@ -6,7 +6,7 @@
     <div class="surname cell"> {{ reservation.reservationSurname }} </div>
     <div class="date cell"> {{ reservation.reservationDate | date: 'dd-LL-YYYY' }} </div>
     <div class="time cell"> {{ reservation.reservationDate | date: 'HH:mm' }} </div>
-    <div class="edit cell"><button><i-bs name="pencil-fill"></i-bs></button></div>
+    <div class="edit cell"><a [routerLink]="['edit', reservation.reservationId]"><button><i-bs name="pencil-fill"></i-bs></button></a></div>
     <div class="delete cell"><button (click)="deleteReservationEmitter(reservation.reservationId)"><i-bs name="trash2-fill"></i-bs></button></div>
     <div class="details cell"><button (click)="detailsVisible = !detailsVisible"><i-bs name="chevron-down"></i-bs></button></div>
   </div>

@@ -24,6 +24,9 @@ import { NgxBootstrapIconsModule } from 'ngx-bootstrap-icons';
 import { allIcons } from 'ngx-bootstrap-icons';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ScrollingModule } from '@angular/cdk/scrolling';
+import { ReservationEditComponent } from './Components/Reservations/reservation-edit/reservation-edit.component';
+import { DatePipe } from '@angular/common';
+import { ClickOutsideDirective } from './Directives/click-outside.directive';
 
 
 @NgModule({
@@ -42,7 +45,9 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
     LoginComponent,
     RegisterComponent,
     ProfileComponent,
-    ProfileDeleteComponent
+    ProfileDeleteComponent,
+    ReservationEditComponent,
+    ClickOutsideDirective,
   ],
   imports: [
     BrowserModule,
@@ -51,9 +56,11 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
     HttpClientModule,
     NgxBootstrapIconsModule.pick(allIcons),
     BrowserAnimationsModule,
-    ScrollingModule
+    ScrollingModule,
   ],
-  providers: [],
+  providers: [
+    DatePipe
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

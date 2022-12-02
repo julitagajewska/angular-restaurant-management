@@ -1,0 +1,22 @@
+<div class="reservations-form__container">
+  <div class="exit-button__container">
+    <button class="exit-button" (click)="goBack()"><i-bs name="x-lg"></i-bs></button>
+  </div>
+  <div class="reservation__header">
+    <h3 class="reservation_title">Edycja rezerwacji o id = {{ reservationId }} </h3>
+  </div>
+    <form class="reservation__form" [formGroup]="formModel" (ngSubmit)='updateReservation()'>
+      <input type="text" formControlName="name" placeholder="Imię">
+      <input type="text" formControlName="surname" placeholder="Nazwisko">
+      <input type="tel" formControlName="phone" placeholder="Numer telefonu">
+      <input type="date" formControlName="date" placeholder="Data">
+      <input type="time" formControlName="time" placeholder="Godzina">
+      <input type="number" formControlName="table" placeholder="Numer stolika">
+      <textarea formControlName="additionalInformation" placeholder="Dodatkowe informacje"></textarea>
+      <input type="submit" value="Zapisz">
+      <div class="alert-container" clickOutside (clickOutside)="clickedOutside()">
+        <span *ngIf="changesSavedAlert" class="data-modified__alert">Zmiany zapisano pomyślnie!</span>
+      </div>
+
+    </form>
+</div>
