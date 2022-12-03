@@ -11,6 +11,8 @@ import { OrdersService } from 'src/app/Services/orders.service';
 export class OrdersTableComponent implements OnInit, OnDestroy {
 
   private _orders!: Order[];
+  private _filteredOrders!: Order[];
+
   private _ordersSubscription!: Subscription;
   private _showAllToggle: boolean = true;
 
@@ -32,6 +34,12 @@ export class OrdersTableComponent implements OnInit, OnDestroy {
   }
 
   showAll(): void {
+    this.orders = this.ordersService.orders;
+    this.showAllToggle = !this.showAllToggle;
+  }
+
+  showWaiting(): void {
+    this.orders = this.ordersService.getWaiting();
     this.showAllToggle = !this.showAllToggle;
   }
 
@@ -56,4 +64,10 @@ export class OrdersTableComponent implements OnInit, OnDestroy {
     this._showAllToggle = value;
   }
 
+  public get filteredOrders(): Order[] {
+    return this._filteredOrders;
+  }
+  public set filteredOrders(value: Order[]) {
+    this._filteredOrders = value;
+  }
 }

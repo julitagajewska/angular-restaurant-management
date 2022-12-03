@@ -9,9 +9,64 @@
   height: 600px;
 }
 
+.today-reservations__table {
+  width: 650px;
+  margin-left: 20px
+}
+
 .today-reservations__header {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  width: 100%;
+  width: 600px;
+}
+
+.today-reservations__date-picker {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.today-reservations__table-header {
+  background-color: sandybrown;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: 14px;
+  font-weight: bold;
+  width: 600px;
+}
+
+.cell {
+  text-align: center;
+}
+
+.name {
+  width: 120px;
+  text-align: left;
+  padding-left: 30px;
+}
+
+.date {
+  width: 100px;
+
+}
+
+.table {
+  width: 60px;
+}
+
+.details {
+  width: 60px;
+}
+
+.today-reservations__container cdk-virtual-scroll-viewport {
+  height: 400px;
+  width: 95%;
+  margin: 0 0 2.5rem 0;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
 }

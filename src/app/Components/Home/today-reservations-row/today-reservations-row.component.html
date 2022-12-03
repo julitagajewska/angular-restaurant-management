@@ -1,1 +1,7 @@
-<p>today-reservations-row works!</p>
+<div class="today-reservations__table-row">
+  <div class="name cell"> {{ reservation.reservationName }} {{ reservation.reservationSurname }} </div>
+  <div class="date cell"> {{ reservation.reservationDate | date: 'dd-LL-YYYY' }} </div>
+  <div class="date cell"> {{ reservation.reservationDate | date: 'HH:mm' }} </div>
+  <div class="table cell"> {{ reservation.reservationTableNumber }}</div>
+  <div class="details cell"></div>
+</div>

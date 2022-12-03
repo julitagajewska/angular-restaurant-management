@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Reservation } from 'src/app/Models/reservation';
+import { ReservationsServiceService } from 'src/app/Services/reservations-service.service';
 
 @Component({
   selector: 'app-today-reservations',
@@ -7,9 +9,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TodayReservationsComponent implements OnInit {
 
-  constructor() { }
+  private _reservations: Reservation[] = [];
+
+  constructor(private reservationsService: ReservationsServiceService) {
+    this.reservationsService.getReservations().subscribe(response => {
+      this.reservations = response;
+    });
+   }
+
+
 
   ngOnInit(): void {
+  }
+
+  public get reservations(): Reservation[] {
+    return this._reservations;
+  }
+  public set reservations(value: Reservation[]) {
+    this._reservations = value;
   }
 
 }

@@ -1,8 +1,8 @@
 <div class="orders-table__container">
   <div class="orders-table__container-header">
     <h2 class="header">Zamówienia</h2>
-    <button class="show-all_button" *ngIf="showAllToggle==true" (click)="showAll()">Pokaż wszystkie</button>
-    <button class="show-waiting_button"  *ngIf="showAllToggle==false" (click)="showAll()">Pokaż oczekujące</button>
+    <button class="show-all_button" *ngIf="showAllToggle==false" (click)="showAll()">Pokaż wszystkie</button>
+    <button class="show-waiting_button"  *ngIf="showAllToggle==true" (click)="showWaiting()">Pokaż oczekujące</button>
   </div>
   <div>
     <div class="orders__table-header">

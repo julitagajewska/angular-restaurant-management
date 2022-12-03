@@ -4,9 +4,32 @@
       <h2>Podgląd rezerwacji</h2>
       <h4>04.12.2022</h4>
     </div>
-    <button>Wybierz datę</button>
+    <div class="today-reservations__date-picker">
+      <label>Wybierz datę</label>
+      <input type="date">
+    </div>
+
   </div>
   <div class="today-reservations__table">
-    <app-today-reservations-table></app-today-reservations-table>
+
+      <div>
+        <div class="today-reservations__table-header">
+          <div class="name cell">Imię i nazwisko</div>
+          <div class="date cell">Data</div>
+          <div class="time cell">Godzina</div>
+          <div class="table cell">Stolik</div>
+          <div class="details cell"></div>
+        </div>
+      </div>
+
+      <cdk-virtual-scroll-viewport itemSize ="20" tvsItemSize="48" headerHeight="56">
+        <div>
+          <app-today-reservations-row
+          *ngFor="let reservation of reservations"
+          [reservationParentData]="reservation">
+        </app-today-reservations-row>
+        </div>
+      </cdk-virtual-scroll-viewport>
+
   </div>
 </div>

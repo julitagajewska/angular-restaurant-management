@@ -38,7 +38,6 @@ import { TodayReservationsComponent } from './Components/Home/today-reservations
 import { TodayReservationsRowComponent } from './Components/Home/today-reservations-row/today-reservations-row.component';
 import { OrdersTableComponent } from './Components/Home/orders-table/orders-table.component';
 import { OrdersTableRowComponent } from './Components/Home/orders-table-row/orders-table-row.component';
-import { TodayReservationsTableComponent } from './Components/Home/today-reservations-table/today-reservations-table.component';
 
 
 @NgModule({
@@ -70,8 +69,7 @@ import { TodayReservationsTableComponent } from './Components/Home/today-reserva
     TodayReservationsComponent,
     TodayReservationsRowComponent,
     OrdersTableComponent,
-    OrdersTableRowComponent,
-    TodayReservationsTableComponent
+    OrdersTableRowComponent
   ],
   imports: [
     BrowserModule,

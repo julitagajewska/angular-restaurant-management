@@ -13,6 +13,7 @@ export class OrdersTableRowComponent implements OnInit {
   @Input('orderParentData') order!: Order;
 
   private _detailsToggle: boolean = false;
+  private _toggleStatusChange: boolean = false;
 
   constructor(private ordersService: OrdersService) { }
 
@@ -29,8 +30,12 @@ export class OrdersTableRowComponent implements OnInit {
     });
   }
 
-  changeStatusReady() {
-    this.ordersService.changeStatus(this.order, Statuses.ready);
+  changeStatus(status: string) {
+    this.ordersService.changeStatus(this.order, status);
+  }
+
+  toggleChange(): void {
+    this.toggleStatusChange = !this.toggleStatusChange;
   }
 
   public get detailsToggle(): boolean {
@@ -40,4 +45,10 @@ export class OrdersTableRowComponent implements OnInit {
     this._detailsToggle = value;
   }
 
+  public get toggleStatusChange(): boolean {
+    return this._toggleStatusChange;
+  }
+  public set toggleStatusChange(value: boolean) {
+    this._toggleStatusChange = value;
+  }
 }

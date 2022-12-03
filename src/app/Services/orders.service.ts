@@ -29,7 +29,6 @@ export class OrdersService {
   private _buttonToggles: boolean[] = [];
   private _buttonTogglesChange: Subject<boolean[]> = new Subject<boolean[]>();
 
-
   constructor(private http: HttpClient) {
 
     this.totalPriceChange.subscribe((value) => {
@@ -342,6 +341,14 @@ export class OrdersService {
       tap((newReservation: OrderType) => this.log(`edited user w/ id=${order.orderId}`)),
       catchError(this.handleError<OrderType>('editReservation'))
     );
+  }
+
+  // ------- Orders filtering ------- //
+
+  getWaiting(): Order[] {
+    return this.orders.filter((order) => {
+      return order.status == Statuses.proccessing || order.status == Statuses.ready;
+    });
   }
 
   // ------- Products filtering --------- //
