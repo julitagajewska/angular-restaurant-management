@@ -1,1 +1,34 @@
-<p>orders-table-row works!</p>
+<div class="order__table-row">
+  <div class="orderId cell"> {{ order.orderId }}</div>
+  <div class="products cell">Produkty</div>
+  <div class="price cell"> {{ order.total | plnPipe }} </div>
+  <div class="status cell"> {{ order.status }} </div>
+
+  <div class="details cell" *ngIf="detailsToggle==false">
+    <button (click)="showDetails()"><i-bs name="chevron-down"></i-bs></button>
+  </div>
+
+  <div class="details cell" *ngIf="detailsToggle==true">
+    <button (click)="showDetails()"><i-bs name="chevron-up"></i-bs></button>
+  </div>
+
+</div>
+<div class="order-details__table-row" *ngIf="detailsToggle==true">
+
+  <div class="details__title">
+    <div>Zamówione produkty</div>
+  </div>
+
+  <div class="ordered-products" *ngFor="let product of order.products">
+    <div class="details__product-row">
+      <div class="product-name"> {{ product.product.productName }}</div>
+      <div class="product-price"> {{ product.quantity }}x {{ product.product.productPrice | plnPipe}}</div>
+      <div class="product-toatl"> {{ (product.product.productPrice * product.quantity).toFixed(2) }} zł</div>
+    </div>
+  </div>
+
+  <div class="details__button-group">
+    <button class="details__delete-button" (click)="deleteOrder()">Usuń</button>
+    <button class="details__status-button" (click)="changeStatusReady()">Zmień status</button>
+  </div>
+</div>

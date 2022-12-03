@@ -4,7 +4,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  width: 50rem;
+  width: 40rem;
   padding: 1rem 1rem 1rem 1rem;
   height: 600px;
 }
@@ -13,44 +13,59 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  width: 100%;
+  width: 94%;
   justify-content: space-between;
 }
 
 .orders__table-header {
-  background-color: sandybrown;
+  background-color: rgb(211, 116, 33);
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
   font-size: 14px;
-  font-weight: bold;
-  width: 560px;
+  margin-left: 2px;
+  width: 600px;
 }
 
 .cell {
   text-align: center;
+  font-size: 14px;
+  font-weight: bold;
 }
+
+/* ---- Header Cells ---- */
 
 .orderId {
-  width: 120px;
+  width: 30px;
   text-align: left;
-  padding-left: 30px;
+  padding: 12px 10px 12px 30px;
 }
 
-.products {
+.status {
   width: 100px;
+}
 
+.overview {
+  width: 200px;
 }
 
 .price {
   width: 60px;
 }
 
-.status {
-  width: 60px;
+.details {
+  width: 40px;
 }
 
-.details {
-  width: 60px;
+/* ----- Table Content ---- */
+
+.orders-table__container cdk-virtual-scroll-viewport {
+  height: 500px;
+  width: 98%;
+  margin: 0 0 2.5rem 0;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
 }

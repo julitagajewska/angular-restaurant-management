@@ -1,0 +1,115 @@
+.order__table-row {
+  background-color: sandybrown;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: 14px;
+  margin-left: 15px;
+  width: 600px;
+}
+
+.order-details__table-row {
+  background-color: rgb(121, 163, 236);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: 14px;
+  margin-left: 15px;
+  width: 600px;
+}
+
+.cell {
+  text-align: center;
+}
+
+.orderId {
+  width: 10px;
+  text-align: left;
+  padding: 12px 10px 12px 30px;
+}
+
+.products {
+  width: 180px;
+
+}
+
+.price {
+  width: 60px;
+}
+
+.status {
+  width: 140px;
+}
+
+.details {
+  width: 40px;
+}
+
+.order-details__table-row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.details__product-row {
+  width: 90%;
+  background-color: darksalmon;
+  display: flex;
+  flex-direction: row;
+}
+
+.product-name {
+  width: 200px;
+}
+
+.product-price {
+  width: 100px;
+}
+
+
+.details__product-row div {
+  text-align: left;
+  padding: 0.75rem 1rem 0.75rem 1rem;
+}
+
+.ordered-products {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.details__button-group {
+  width: 90%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  padding: 0.75rem 0 0.75rem 0;
+}
+
+.details__delete-button,
+.details__status-button {
+  padding: 0.5rem 1rem 0.5rem 1rem;
+  border-style: none;
+  cursor: pointer;
+}
+
+.details__delete-button:hover,
+.details__status-button:hover {}
+
+.details__delete-button {
+  margin-right: 0.75rem;
+
+}
+
+.details__status-button {}
+
+.details__title {
+  width: 90%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  padding: 0.75rem 0 0.75rem 0;
+}

@@ -14,7 +14,9 @@ import { Statuses } from '../Models/status';
 export class OrdersService {
 
   private _products!: Product[];
+
   private _orders!: Order[];
+  private _ordersChange: Subject<Order[]> = new Subject<Order[]>();
 
   private _newOrder: Order = new Order('', [], '', 0);
 
@@ -23,8 +25,6 @@ export class OrdersService {
 
   private _totalPrice: number = 0;
   private _totalPriceChange: Subject<number> = new Subject<number>();
-
-  private _url: string = "http://localhost:7777/products";
 
   private _buttonToggles: boolean[] = [];
   private _buttonTogglesChange: Subject<boolean[]> = new Subject<boolean[]>();
@@ -43,9 +43,62 @@ export class OrdersService {
     this.newOrderProductsArrayDataChange.subscribe((value) => {
       this.newOrderProductsArray = value;
     })
+
+    this.ordersChange.subscribe((value) => {
+      this.orders = value;
+    });
   }
 
   // -------- Orders ------- //
+
+  changeStatus(order: Order, status: string): void {
+
+    let newOrdersArray = this.orders;
+
+    newOrdersArray[newOrdersArray.findIndex(v =>
+      v.orderId === order.orderId)].status = status;
+
+    order.status = status;
+
+
+
+    let orderedProducts: OrderedProductType[] = [];
+    let inputProductsArray = order.products;
+
+    inputProductsArray.forEach(orderedProduct => {
+
+      let newProduct: ProductType = {
+        productId: orderedProduct.product.productId,
+        productName: orderedProduct.product.productName,
+        productPrice: orderedProduct.product.productPrice,
+        productImage: orderedProduct.product.productImage,
+        productCategory: orderedProduct.product.productCategory
+      };
+
+      let newOrderedProduct: OrderedProductType = {
+        product: newProduct,
+        quantity: orderedProduct.quantity
+      };
+
+      orderedProducts.push(newOrderedProduct);
+    });
+
+    let orderType: OrderType = {
+      orderId: order.orderId,
+      products: orderedProducts,
+      status: status,
+      total: order.total
+    }
+
+    this.editOrder(orderType).subscribe(response => {
+      console.log("Order edited");
+      this.changeOrders(newOrdersArray);
+    });
+  }
+
+  changeOrders(orders: Order[]): void{
+    this.ordersChange.next(orders);
+  }
 
   resetOrder(): void {
 
@@ -81,23 +134,39 @@ export class OrdersService {
 
     });
 
-    let newOrder: OrderType;
-    newOrder = {
+    let newOrderType: OrderType;
+    newOrderType = {
       orderId: this.getNewId(),
       products: orderedProducts,
       status: Statuses.proccessing,
       total: this.totalPrice
     };
 
-    console.log("Nowe zamówienie przed zapisaniem");
+    let newOrder: Order = new Order(
+      newOrderType.orderId,
+      this.newOrderProductsArray,
+      newOrderType.status,
+      newOrderType.total
+    );
+
+    console.log("New order type");
+    console.log(newOrderType);
+    console.log("New order object");
     console.log(newOrder);
 
-    this.addOrder(newOrder).subscribe(response => {
+    this.addOrder(newOrderType).subscribe(response => {
+
+      let newOrdersArray: Order[] = this.orders;
+      newOrdersArray.push(newOrder);
+      this.changeOrders(newOrdersArray);
+
       this.resetOrder();
     })
   }
 
   getNewId(): string {
+    console.log("Robię nowe ID");
+    console.log(this.orders);
     let indexes: number[] = [];
     this.orders.forEach(order => {
       indexes.push(+order.orderId);
@@ -180,7 +249,6 @@ export class OrdersService {
     let url: string = "http://localhost:7777/products";
     return this.http.get<Product[]>(url)
     .pipe(map((Products: Product[]) => Products.map(product => {
-      this.log('GET: all products');
       let newProduct =  new Product(
         product.productId,
         product.productName,
@@ -195,9 +263,11 @@ export class OrdersService {
   }
 
   getAllOrders(): Observable<Order[]> {
-    this.orders = [];
+
+    let newOrdersArray: Order[] = [];
+
     let url: string = "http://localhost:7777/orders";
-    return this.http.get<Order[]>(url)
+    let response: Observable<Order[]> = this.http.get<Order[]>(url)
     .pipe(map((orders: Order[]) => orders.map(order => {
 
       let orderedProducts: OrderedProduct[] = [];
@@ -221,18 +291,20 @@ export class OrdersService {
         orderedProducts.push(newOrderedProduct);
       })
 
-      this.log('GET: all orders');
       let newOrder: Order = new Order(
         order.orderId,
         orderedProducts,
         order.status,
         order.total
       );
-      this.orders.push(newOrder);
-      console.log(newOrder);
+
+      newOrdersArray.push(newOrder);
       return newOrder;
     })),
     catchError(this.handleError<Order[]>('GET: all products')));
+
+    this.changeOrders(newOrdersArray);
+    return response;
   }
 
   addOrder(order: OrderType): Observable<OrderType> {
@@ -240,6 +312,35 @@ export class OrdersService {
     return this.http.post<Order>(url, order).pipe(
       tap((newOrder: OrderType) => this.log(`added order w/ id=${order.orderId}`)),
       catchError(this.handleError<OrderType>('add order'))
+    );
+  }
+
+  deleteOrder(order: Order): Observable<void> {
+
+    const url = `http://localhost:7777/orders/${order.orderId}`;
+    let response: Observable<void> = this.http.delete<void>(url).pipe(
+      tap(_ => {
+        this.log(`Order deleted`);
+
+        let newOrdersArray: Order[] = this.orders;
+
+        newOrdersArray.splice(newOrdersArray.findIndex(v =>
+          v.orderId === order.orderId), 1);
+
+        this.changeOrders(newOrdersArray);
+      }),
+      catchError(this.handleError<any>('DELETE order'))
+    );
+
+
+    return response;
+  }
+
+  editOrder(order: OrderType): Observable<OrderType> {
+    const url = `http://localhost:7777/orders/${order.orderId}`;
+    return this.http.put<Order>(url, order).pipe(
+      tap((newReservation: OrderType) => this.log(`edited user w/ id=${order.orderId}`)),
+      catchError(this.handleError<OrderType>('editReservation'))
     );
   }
 
@@ -290,13 +391,6 @@ export class OrdersService {
   }
   public set products(value: Product[]) {
     this._products = value;
-  }
-
-  public get url(): string {
-    return this._url;
-  }
-  public set url(value: string) {
-    this._url = value;
   }
 
   public get newOrder(): Order {
@@ -353,5 +447,12 @@ export class OrdersService {
   }
   public set orders(value: Order[]) {
     this._orders = value;
+  }
+
+  public get ordersChange(): Subject<Order[]> {
+    return this._ordersChange;
+  }
+  public set ordersChange(value: Subject<Order[]>) {
+    this._ordersChange = value;
   }
 }

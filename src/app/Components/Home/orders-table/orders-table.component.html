@@ -1,21 +1,22 @@
 <div class="orders-table__container">
   <div class="orders-table__container-header">
     <h2 class="header">Zamówienia</h2>
-    <button class="show-all_button">Pokaż wszystkie</button>
-    <!-- <button class="show-waiting_button">Pokaż oczekujące</button> -->
+    <button class="show-all_button" *ngIf="showAllToggle==true" (click)="showAll()">Pokaż wszystkie</button>
+    <button class="show-waiting_button"  *ngIf="showAllToggle==false" (click)="showAll()">Pokaż oczekujące</button>
   </div>
-
   <div>
     <div class="orders__table-header">
-      <div class="orderId cell">Numer zamówienia</div>
-      <div class="products cell">Produkty</div>
-      <div class="price cell">Cena</div>
-      <div class="status cell">Status</div>
-      <div class="details cell"></div>
+      <div class="orderId cell">#</div>
+      <div class="status cell">STATUS</div>
+      <div class="overview cell">SKRÓT</div>
+      <div class="price cell">CENA</div>
     </div>
   </div>
 
-  <div>
+  <cdk-virtual-scroll-viewport itemSize ="20" tvsItemSize="48" headerHeight="56">
 
-  </div>
+    <div class="orders-list">
+        <app-orders-table-row [orderParentData]="order" *ngFor="let order of orders"></app-orders-table-row>
+    </div>
+  </cdk-virtual-scroll-viewport>
 </div>
