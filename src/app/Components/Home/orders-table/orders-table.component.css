@@ -1,0 +1,56 @@
+.orders-table__container {
+  background-color: cornflowerblue;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 50rem;
+  padding: 1rem 1rem 1rem 1rem;
+  height: 600px;
+}
+
+.orders-table__container-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.orders__table-header {
+  background-color: sandybrown;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: 14px;
+  font-weight: bold;
+  width: 560px;
+}
+
+.cell {
+  text-align: center;
+}
+
+.orderId {
+  width: 120px;
+  text-align: left;
+  padding-left: 30px;
+}
+
+.products {
+  width: 100px;
+
+}
+
+.price {
+  width: 60px;
+}
+
+.status {
+  width: 60px;
+}
+
+.details {
+  width: 60px;
+}

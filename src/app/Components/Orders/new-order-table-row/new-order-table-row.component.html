@@ -1,1 +1,11 @@
-<p>new-order-table-row works!</p>
+<div class="new-order__table-row">
+  <div class="product cell"> {{ product.product.productName }}</div>
+  <div class="quantity cell">
+    <button (click)="decrease()" [disabled]="disableDecreaseButton==true">-</button>
+    {{ product.quantity  }}
+    <button (click)="increase()">+</button>
+  </div>
+  <div class="price cell"> {{ product.product.productPrice }} </div>
+  <div class="sum cell"> {{ (product.product.productPrice * product.quantity).toFixed(2) }} </div>
+  <div class="delete cell"><button (click)="remove()">X</button></div>
+</div>

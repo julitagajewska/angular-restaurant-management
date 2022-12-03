@@ -1,19 +1,22 @@
 <div class="component__container">
   <div class="new-order__header">
-    Nowe zamówienie
+    <h2>Nowe zamówienie</h2>
   </div>
-  <div class="new-order__table">
-    <div>
-      Tutaj jest header tablicy
-    </div>
-    <div>
-      Tutaj jest zawartość tablicy
-    </div>
-  </div>
+  <app-new-order-table></app-new-order-table>
 
-  <div class="new-order__button-group">
-    <button>Anuluj</button>
-    <p><b>Razem: </b>69.71 zł</p>
-    <button>Zapisz</button>
+  <div class="new-order__button-group" clickOutside (clickOutside)="clickedOutside()">
+
+    <div class="buttons__container">
+      <button class="cancel button" (click)="reset()">Resetuj</button>
+      <p><b>Razem: </b> {{ total | number : '1.2-2' }} zł </p>
+      <button class="save button" (click)="save()">Zapisz</button>
+    </div>
+
+    <div class="confirm-alert__container">
+      <div *ngIf="saveConfirm">
+        <span class="confirm_alert">Dodano zamówienie!</span>
+      </div>
+    </div>
+
   </div>
 </div>

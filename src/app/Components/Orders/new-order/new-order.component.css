@@ -3,14 +3,42 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  justify-content: space-around;
+  justify-content: flex-start;
   width: 35rem;
+  padding: 1rem 1rem 0.5rem 1rem;
+  height: 600px;
 }
 
 .new-order__button-group {
-  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: 1rem;
+  width: 560px;
+}
+
+.confirm-alert__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: 0rem;
+  width: 560px;
+}
+
+.buttons__container {
+  background-color: brown;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-evenly;
+  padding-top: 1rem;
+  width: 560px;
+}
+
+.button {
+  padding: 1rem 2rem 1rem 2rem;
+  font-weight: bold;
+  cursor: pointer;
 }

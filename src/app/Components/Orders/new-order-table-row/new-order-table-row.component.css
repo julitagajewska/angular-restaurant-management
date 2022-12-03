@@ -1,0 +1,40 @@
+.new-order__table-row {
+  background-color: peachpuff;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: 14px;
+  font-weight: bold;
+  width: 560px;
+}
+
+.cell {
+  text-align: center;
+}
+
+.product {
+  width: 120px;
+  text-align: left;
+  padding-left: 30px;
+}
+
+.quantity {
+  width: 100px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.price {
+  width: 60px;
+}
+
+.sum {
+  width: 60px;
+}
+
+.delete {
+  width: 60px;
+}

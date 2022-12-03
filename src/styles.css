@@ -244,7 +244,7 @@ i-bs {
   justify-content: center;
 }
 
-cdk-virtual-scroll-viewport {
+.reservations-table__container cdk-virtual-scroll-viewport {
   height: 500px;
   width: 98%;
   margin: 1rem 0 2.5rem 0;

@@ -61,7 +61,7 @@ export class ProductsComponent implements OnInit {
   displayEntrees(): void {
     this.toggleOff();
     this.displayEntreesToggle = true;
-    this.productTypeChange.next(this.ordersService.getEtrees());
+    this.productTypeChange.next(this.ordersService.getEntrees());
   }
 
   displayMains(): void {

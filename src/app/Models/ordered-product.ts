@@ -1,9 +1,8 @@
-import { Product } from "./product";
+import { Product, ProductType } from "./product";
 
 export type OrderedProductType = {
-  product: Product,
+  product: ProductType,
   quantity: number,
-  sum: number
 }
 
 export class OrderedProduct {
@@ -11,15 +10,8 @@ export class OrderedProduct {
   constructor(
     private _product: Product,
     private _quantity: number,
-    private _sum: number
   ){}
 
-  public get sum(): number {
-    return this._sum;
-  }
-  public set sum(value: number) {
-    this._sum = value;
-  }
   public get quantity(): number {
     return this._quantity;
   }

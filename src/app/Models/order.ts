@@ -1,11 +1,10 @@
-import { OrderedProduct } from "./ordered-product";
+import { OrderedProduct, OrderedProductType } from "./ordered-product";
 
 export type OrderType = {
   orderId: string,
-  products: OrderedProduct[],
+  products: OrderedProductType[],
   status: string,
-  total: number,
-  takeout: boolean
+  total: number
 }
 
 export class Order {
@@ -13,8 +12,7 @@ export class Order {
     private _orderId: string,
     private _products: OrderedProduct[],
     private _status: string,
-    private _total: number,
-    private _takeout: boolean
+    private _total: number
   ){}
 
   public get total(): number {
@@ -40,12 +38,6 @@ export class Order {
   }
   public set orderId(value: string) {
     this._orderId = value;
-  }
-  public get takeout(): boolean {
-    return this._takeout;
-  }
-  public set takeout(value: boolean) {
-    this._takeout = value;
   }
 }
 

@@ -1,0 +1,17 @@
+.today-reservations__container {
+  background-color: coral;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: 30rem;
+  padding: 1rem 1rem 0.5rem 1rem;
+  height: 600px;
+}
+
+.today-reservations__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  width: 100%;
+}

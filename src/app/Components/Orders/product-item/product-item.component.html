@@ -9,7 +9,7 @@
           <span class="product-item__price"> {{ product.productPrice | plnPipe }} </span>
       </div>
       <div class="product-item__button">
-        <button class="product-item__add-button">+</button>
+        <button class="product-item__add-button" (click)="addProduct()" [disabled]="buttonDisabled==true" [id]="[product.productId]">+</button>
       </div>
     </div>
 </div>

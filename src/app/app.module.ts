@@ -34,6 +34,11 @@ import { NewOrderTableComponent } from './Components/Orders/new-order-table/new-
 import { NewOrderTableRowComponent } from './Components/Orders/new-order-table-row/new-order-table-row.component';
 import { PlnPipePipe } from './Pipes/pln-pipe.pipe';
 import { FilterProductsPipe } from './Pipes/filter-products.pipe';
+import { TodayReservationsComponent } from './Components/Home/today-reservations/today-reservations.component';
+import { TodayReservationsRowComponent } from './Components/Home/today-reservations-row/today-reservations-row.component';
+import { OrdersTableComponent } from './Components/Home/orders-table/orders-table.component';
+import { OrdersTableRowComponent } from './Components/Home/orders-table-row/orders-table-row.component';
+import { TodayReservationsTableComponent } from './Components/Home/today-reservations-table/today-reservations-table.component';
 
 
 @NgModule({
@@ -61,7 +66,12 @@ import { FilterProductsPipe } from './Pipes/filter-products.pipe';
     NewOrderTableComponent,
     NewOrderTableRowComponent,
     PlnPipePipe,
-    FilterProductsPipe
+    FilterProductsPipe,
+    TodayReservationsComponent,
+    TodayReservationsRowComponent,
+    OrdersTableComponent,
+    OrdersTableRowComponent,
+    TodayReservationsTableComponent
   ],
   imports: [
     BrowserModule,
