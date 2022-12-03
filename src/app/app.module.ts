@@ -30,6 +30,10 @@ import { ClickOutsideDirective } from './Directives/click-outside.directive';
 import { ProfileChangePasswordComponent } from './Components/User-profile/profile-change-password/profile-change-password.component';
 import { ProfileDeleteSuccessComponent } from './Components/User-profile/profile-delete-success/profile-delete-success.component';
 import { WelcomeComponent } from './Components/General/welcome/welcome.component';
+import { NewOrderTableComponent } from './Components/Orders/new-order-table/new-order-table.component';
+import { NewOrderTableRowComponent } from './Components/Orders/new-order-table-row/new-order-table-row.component';
+import { PlnPipePipe } from './Pipes/pln-pipe.pipe';
+import { FilterProductsPipe } from './Pipes/filter-products.pipe';
 
 
 @NgModule({
@@ -54,6 +58,10 @@ import { WelcomeComponent } from './Components/General/welcome/welcome.component
     ProfileChangePasswordComponent,
     ProfileDeleteSuccessComponent,
     WelcomeComponent,
+    NewOrderTableComponent,
+    NewOrderTableRowComponent,
+    PlnPipePipe,
+    FilterProductsPipe
   ],
   imports: [
     BrowserModule,

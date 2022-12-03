@@ -1,0 +1,72 @@
+.component__container {
+  background-color: cornflowerblue;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  width: 45rem;
+  padding: 1rem 1rem 0.5rem 1rem;
+}
+
+.products__categories {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 42rem;
+  padding-top: 1.5rem;
+}
+
+.products__categories button {
+  width: 7.5rem;
+  padding: 0.25rem 0.5rem 0.25rem 0.5rem;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.active {
+  background-color: darkolivegreen;
+}
+
+.search-bar {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  margin-top: 0.5rem;
+}
+
+#products__search-bar-input {
+  width: 38rem;
+  padding: 0.5rem;
+  padding-left: 2rem;
+}
+
+.search-bar .icon {
+  position: absolute;
+  left: 10px;
+  top: 11px;
+  font-size: 26px;
+}
+
+i-bs {
+  position: absolute;
+  padding-left: 0.25rem;
+  width: 12px;
+  height: 12px;
+}
+
+/* -------- Products -------- */
+
+.products__product-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+cdk-virtual-scroll-viewport {
+  height: 425px !important;
+}
