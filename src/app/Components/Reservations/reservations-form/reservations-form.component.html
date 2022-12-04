@@ -4,12 +4,83 @@
   </div>
     <form class="reservation__form" [formGroup]="formModel" (ngSubmit)='addReservation()'>
       <input type="text" formControlName="name" placeholder="Imię">
+      <div *ngIf="getField('name')?.errors && getField('name')?.touched">
+        <div *ngIf="getField('name')?.errors?.['required']" class="danger_alert">
+          Imię jest wymagane
+        </div>
+        <div *ngIf="getField('name')?.errors?.['pattern']" class="danger_alert">
+          Imię może zaweirać tylko litery
+        </div>
+      </div>
+
       <input type="text" formControlName="surname" placeholder="Nazwisko">
+      <div *ngIf="getField('surname')?.errors && getField('surname')?.touched">
+        <div *ngIf="getField('surname')?.errors?.['required']" class="danger_alert">
+          Nazwisko jest wymagane
+        </div>
+        <div *ngIf="getField('surname')?.errors?.['pattern']" class="danger_alert">
+          Nazwisko może zaweirać tylko litery
+        </div>
+      </div>
+
       <input type="tel" formControlName="phone" placeholder="Numer telefonu">
+      <div *ngIf="getField('phone')?.errors && getField('phone')?.touched">
+        <div *ngIf="getField('phone')?.errors?.['required']" class="danger_alert">
+          Numer telefonu jest wymagany
+        </div>
+        <div *ngIf="getField('phone')?.errors?.['pattern']" class="danger_alert">
+          Numer telefonu może zaweirać tylko cyfry
+        </div>
+      </div>
+      <div *ngIf="formModel.errors?.['phoneToLongError']  && getField('phone')?.touched" class="danger_alert">
+        Wprowadzony numer jest za długi [max. 15]
+      </div><div *ngIf="formModel.errors?.['phoneToShortError']  && getField('phone')?.touched" class="danger_alert">
+        Wprowadzony numer jest za krótki [min. 9]
+      </div>
+
+
       <input type="date" formControlName="date" placeholder="Data">
+      <div *ngIf="getField('date')?.errors && getField('date')?.touched">
+        <div *ngIf="getField('date')?.errors?.['required']" class="danger_alert">
+          Data jest wymagana
+        </div>
+      </div>
+      <div *ngIf="formModel.errors?.['dateError']  && getField('date')?.touched" class="danger_alert">
+        Nie można wprowadzić minionej daty
+      </div>
+
       <input type="time" formControlName="time" placeholder="Godzina">
-      <input type="number" formControlName="table" placeholder="Numer stolika">
+      <div *ngIf="getField('time')?.errors && getField('time')?.touched">
+        <div *ngIf="getField('time')?.errors?.['required']" class="danger_alert">
+          Godzina jest wymagana
+        </div>
+      </div>
+      <div *ngIf="formModel.errors?.['timeError']  && getField('time')?.touched" class="danger_alert">
+        Nie można wprowadzić minionej godziny
+      </div>
+
+      <input type="number" formControlName="table" placeholder="Numer stolika" min="0">
+      <div *ngIf="getField('table')?.errors && getField('table')?.touched">
+        <div *ngIf="getField('table')?.errors?.['required']" class="danger_alert">
+          Numer stolika jest wymagany
+        </div>
+        <div *ngIf="getField('table')?.errors?.['pattern']" class="danger_alert">
+          Pole może zaweirać tylko liczby
+        </div>
+        <div *ngIf="getField('table')?.errors?.['min']" class="danger_alert">
+          Numer stolika nie może być liczbą ujemną
+        </div>
+      </div>
+
       <textarea formControlName="additionalInformation" placeholder="Dodatkowe informacje"></textarea>
-      <input type="submit" value="Dodaj">
+      <div *ngIf="formModel.errors?.['textareaToLongError']  && getField('additionalInformation')?.touched" class="danger_alert">
+        Wprowadzona wiadomość jest za długa [max. 250 znaków]
+      </div>
+
+      <input type="submit" value="Dodaj" [disabled]="!formModel.valid">
+
+      <div class="alert-container" clickOutside (clickOutside)="clickedOutside()">
+        <span *ngIf="addedReservationsAlert" class="data-modified__alert">Dodano rezerwację!</span>
+      </div>
     </form>
 </div>

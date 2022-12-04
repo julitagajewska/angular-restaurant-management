@@ -21,30 +21,29 @@
 }
 
 .cell {
-  text-align: center;
+  text-align: left;
 }
 
 .orderId {
   width: 10px;
-  text-align: left;
   padding: 12px 10px 12px 30px;
 }
 
-.products {
-  width: 180px;
+.status {
+  width: 120px;
+}
 
+.order-overview {
+  width: 170px;
 }
 
 .price {
   width: 60px;
 }
 
-.status {
-  width: 140px;
-}
-
 .details {
-  width: 40px;
+  width: 60px;
+  text-align: center;
 }
 
 .order-details__table-row {

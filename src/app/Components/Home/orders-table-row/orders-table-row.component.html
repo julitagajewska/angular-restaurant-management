@@ -1,8 +1,8 @@
 <div class="order__table-row">
   <div class="orderId cell"> {{ order.orderId }}</div>
-  <div class="products cell">Produkty</div>
+  <div class="status cell" statusColor statusValue="{{order.status}}"> {{ order.status }} </div>
+  <div class="order-overview cell">{{ orderOverview }}</div>
   <div class="price cell"> {{ order.total | plnPipe }} </div>
-  <div class="status cell"> {{ order.status }} </div>
 
   <div class="details cell" *ngIf="detailsToggle==false">
     <button (click)="showDetails()"><i-bs name="chevron-down"></i-bs></button>
@@ -34,8 +34,8 @@
   </div>
 
   <div *ngIf="toggleStatusChange==true" class="status__button-group">
-    <button (click)="changeStatus('W trakcie przygotowania')" class="proccessing__button">W trakcie przygotowania</button>
-    <button (click)="changeStatus('Gotowe do wydania')" class="ready__button">Gotowe do wydania</button>
+    <button (click)="changeStatus('Przygotowywane')" class="proccessing__button">Przygotowywane</button>
+    <button (click)="changeStatus('Gotowe')" class="ready__button">Gotowe</button>
     <button (click)="changeStatus('Zrealizowane')" class="delivered__button">Zrealizowane</button>
   </div>
 </div>

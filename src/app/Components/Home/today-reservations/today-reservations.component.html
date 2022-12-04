@@ -2,11 +2,11 @@
   <div class="today-reservations__header">
     <div class="today-reservations__title">
       <h2>Podgląd rezerwacji</h2>
-      <h4>04.12.2022</h4>
+      <h4>{{ date | date: 'dd-LL-YYYY' }}</h4>
     </div>
     <div class="today-reservations__date-picker">
       <label>Wybierz datę</label>
-      <input type="date">
+      <input type="date" [formControl]="dateFilter">
     </div>
 
   </div>
@@ -25,7 +25,7 @@
       <cdk-virtual-scroll-viewport itemSize ="20" tvsItemSize="48" headerHeight="56">
         <div>
           <app-today-reservations-row
-          *ngFor="let reservation of reservations"
+          *ngFor="let reservation of filteredReservations"
           [reservationParentData]="reservation">
         </app-today-reservations-row>
         </div>

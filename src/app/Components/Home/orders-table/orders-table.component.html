@@ -8,7 +8,7 @@
     <div class="orders__table-header">
       <div class="orderId cell">#</div>
       <div class="status cell">STATUS</div>
-      <div class="overview cell">SKRÓT</div>
+      <div class="order-overview cell">SKRÓT</div>
       <div class="price cell">CENA</div>
     </div>
   </div>
@@ -16,7 +16,7 @@
   <cdk-virtual-scroll-viewport itemSize ="20" tvsItemSize="48" headerHeight="56">
 
     <div class="orders-list">
-        <app-orders-table-row [orderParentData]="order" *ngFor="let order of orders"></app-orders-table-row>
+        <app-orders-table-row [orderParentData]="order" *ngFor="let order of displayedOrders"></app-orders-table-row>
     </div>
   </cdk-virtual-scroll-viewport>
 </div>

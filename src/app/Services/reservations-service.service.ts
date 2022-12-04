@@ -13,9 +13,6 @@ export class ReservationsServiceService {
 
   constructor(private http: HttpClient) { }
 
-  public reservations():Reservation[]{
-    return this._reservations;
-  }
 
   getReservations(): Observable<Reservation[]> {
     return this.http.get<Reservation[]>(this.url)
@@ -84,6 +81,13 @@ export class ReservationsServiceService {
       this.log(`${operation} failed: ${error.message}`);
       return of(result as T);
     };
+  }
+
+  public get reservations(): Reservation[] {
+    return this._reservations;
+  }
+  public set reservations(value: Reservation[]) {
+    this._reservations = value;
   }
 
 }

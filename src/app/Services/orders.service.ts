@@ -18,6 +18,9 @@ export class OrdersService {
   private _orders!: Order[];
   private _ordersChange: Subject<Order[]> = new Subject<Order[]>();
 
+  private _waiting!: Order[];
+  private _waitingChange: Subject<Order[]> = new Subject<Order[]>();
+
   private _newOrder: Order = new Order('', [], '', 0);
 
   private _newOrderProductsArray: OrderedProduct[] = [];
@@ -40,6 +43,14 @@ export class OrdersService {
 
   constructor(private http: HttpClient) {
 
+    this.getAllOrders().subscribe(response => {
+      this.orders = response;
+    })
+
+    this.getAllProducts().subscribe(response => {
+      this.products = response;
+    })
+
     this.totalPriceChange.subscribe((value) => {
       this._totalPrice = +value.toFixed(2);
     });
@@ -59,9 +70,17 @@ export class OrdersService {
     this.editModeChange.subscribe((value) => {
       this.editMode = value;
     });
+
+    this.waitingChange.subscribe((value) => {
+      this.waiting = value;
+    })
   }
 
   // -------- Orders ------- //
+
+  changeWaiting(orders: Order[]): void {
+    this.waitingChange.next(orders);
+  }
 
   toggleEditMode(display: boolean): void {
     this.editModeChange.next(display);
@@ -426,10 +445,10 @@ export class OrdersService {
 
   // ------- Orders filtering ------- //
 
-  getWaiting(): Order[] {
-    return this.orders.filter((order) => {
+  getWaiting(): void {
+    this.changeWaiting(this.orders.filter((order) => {
       return order.status == Statuses.proccessing || order.status == Statuses.ready;
-    });
+    }));
   }
 
   // ------- Products filtering --------- //
@@ -584,5 +603,19 @@ export class OrdersService {
   }
   public set togglesBackUp(value: boolean[]) {
     this._togglesBackUp = value;
+  }
+
+  public get waitingChange(): Subject<Order[]> {
+    return this._waitingChange;
+  }
+  public set waitingChange(value: Subject<Order[]>) {
+    this._waitingChange = value;
+  }
+
+  public get waiting(): Order[] {
+    return this._waiting;
+  }
+  public set waiting(value: Order[]) {
+    this._waiting = value;
   }
 }

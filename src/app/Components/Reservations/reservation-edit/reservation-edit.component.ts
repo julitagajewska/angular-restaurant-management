@@ -1,11 +1,14 @@
 import { Time } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Reservation, ReservationType } from 'src/app/Models/reservation';
 import { ReservationsServiceService } from 'src/app/Services/reservations-service.service';
 import { DatePipe } from '@angular/common';
 import { Location } from '@angular/common';
+import { dateMatch, timeMatch } from 'src/app/Validators/date';
+import { textareaToLong } from 'src/app/Validators/textarea';
+import { phoneToLong, phoneToShort } from 'src/app/Validators/phone';
 
 @Component({
   selector: 'app-reservation-edit',
@@ -22,20 +25,43 @@ export class ReservationEditComponent implements OnInit {
   changesSavedAlert: boolean = false;
 
 
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private reservationsService: ReservationsServiceService,
     private datePipe: DatePipe,
     private location: Location) {
-    this.formModel = new FormGroup({
-      name: new FormControl('', Validators.required),
-      surname: new FormControl('', Validators.required),
-      phone: new FormControl('', Validators.required),
-      date: new FormControl('', Validators.required),
-      time: new FormControl('', Validators.required),
-      table: new FormControl('', Validators.required),
-      additionalInformation: new FormControl()
-    });
+      this.formModel = new FormGroup({
+        name: new FormControl('', Validators.compose([
+          Validators.required,
+          Validators.pattern(/^[ a-zA-Z\-\’]+$/)
+        ])),
+        surname: new FormControl('', Validators.compose([
+          Validators.required,
+          Validators.pattern(/^[ a-zA-Z\-\’]+$/)
+        ])),
+        phone: new FormControl('', Validators.compose([
+          Validators.required,
+          Validators.pattern(/^[0-9]*$/),
+        ])),
+        date: new FormControl('', Validators.compose([
+          Validators.required,
+        ])),
+        time: new FormControl('', Validators.compose([
+          Validators.required,
+        ])),
+        table: new FormControl('', Validators.compose([
+          Validators.required,
+          Validators.min(0),
+          Validators.pattern(/^[0-9]*$/)
+        ])),
+        additionalInformation: new FormControl(''),
+      },[dateMatch('date'),
+         timeMatch('date', 'time'),
+         textareaToLong('additionalInformation'),
+         phoneToShort('phone'),
+         phoneToLong('phone')]
+      );
   }
 
   ngOnInit(): void {
@@ -74,14 +100,35 @@ export class ReservationEditComponent implements OnInit {
       formTime = this.datePipe.transform(this.reservationDate, 'HH:mm');
 
       this.formModel = new FormGroup({
-        name: new FormControl(response.reservationName, Validators.required),
-        surname: new FormControl(response.reservationSurname, Validators.required),
-        phone: new FormControl(response.reservationPhone, Validators.required),
-        date: new FormControl(formDate, Validators.required),
-        time: new FormControl(formTime, Validators.required),
-        table: new FormControl(response.reservationTableNumber, Validators.required),
+        name: new FormControl(response.reservationName, Validators.compose([
+          Validators.required,
+          Validators.pattern(/^[ a-zA-Z\-\’]+$/)
+        ])),
+        surname: new FormControl(response.reservationSurname, Validators.compose([
+          Validators.required,
+          Validators.pattern(/^[ a-zA-Z\-\’]+$/)
+        ])),
+        phone: new FormControl(response.reservationPhone, Validators.compose([
+          Validators.required,
+          Validators.pattern(/^[0-9]*$/),
+        ])),
+        date: new FormControl(formDate, Validators.compose([
+          Validators.required,
+        ])),
+        time: new FormControl(formTime, Validators.compose([
+          Validators.required,
+        ])),
+        table: new FormControl(response.reservationTableNumber, Validators.compose([
+          Validators.required,
+          Validators.min(0),
+          Validators.pattern(/^[0-9]*$/)
+        ])),
         additionalInformation: new FormControl(response.reservationAdditionalInfo)
-      });
+      }, [dateMatch('date'),
+          timeMatch('date', 'time'),
+          textareaToLong('additionalInformation'),
+          phoneToShort('phone'),
+          phoneToLong('phone')]);
     });
   }
 
@@ -92,6 +139,10 @@ export class ReservationEditComponent implements OnInit {
 
   clickedOutside(): void {
     this.changesSavedAlert = false;
+  }
+
+  getField(field: any): AbstractControl | null{
+    return this.formModel.get(field);
   }
 
 }

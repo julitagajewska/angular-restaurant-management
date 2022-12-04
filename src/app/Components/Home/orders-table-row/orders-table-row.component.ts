@@ -15,10 +15,32 @@ export class OrdersTableRowComponent implements OnInit {
 
   private _detailsToggle: boolean = false;
   private _toggleStatusChange: boolean = false;
+  private _orderOverview: string = '';
 
   constructor(private ordersService: OrdersService, private router: Router) { }
 
   ngOnInit(): void {
+    this.generateOverview();
+  }
+
+  generateOverview(): void {
+
+    let overview: string = '';
+    this.order.products.forEach(element => {
+
+      if(this.order.products.length == 1 || this.order.products.indexOf(element) == this.order.products.length-1){
+        overview = overview + `${element.product.productName} x${element.quantity}`;
+      } else {
+        overview = overview + `${element.product.productName} x${element.quantity}, `;
+      }
+    });
+
+    if(overview.length >= 50){
+      overview = overview.slice(0,48);
+      overview = overview + '...';
+    }
+
+    this.orderOverview = overview;
   }
 
   showDetails(): void {
@@ -33,6 +55,8 @@ export class OrdersTableRowComponent implements OnInit {
 
   changeStatus(status: string) {
     this.ordersService.changeStatus(this.order, status);
+    this.ordersService.getWaiting();
+    this.toggleChange();
   }
 
   toggleChange(): void {
@@ -58,5 +82,12 @@ export class OrdersTableRowComponent implements OnInit {
   }
   public set toggleStatusChange(value: boolean) {
     this._toggleStatusChange = value;
+  }
+
+  public get orderOverview(): string {
+    return this._orderOverview;
+  }
+  public set orderOverview(value: string) {
+    this._orderOverview = value;
   }
 }

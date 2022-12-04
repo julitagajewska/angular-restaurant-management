@@ -23,31 +23,29 @@
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
-  font-size: 14px;
   margin-left: 2px;
   width: 600px;
 }
 
 .cell {
-  text-align: center;
-  font-size: 14px;
+  text-align: left;
+  font-size: 13px;
   font-weight: bold;
 }
 
 /* ---- Header Cells ---- */
 
 .orderId {
-  width: 30px;
-  text-align: left;
+  width: 10px;
   padding: 12px 10px 12px 30px;
 }
 
 .status {
-  width: 100px;
+  width: 160px;
 }
 
-.overview {
-  width: 200px;
+.order-overview {
+  width: 150px;
 }
 
 .price {
@@ -55,7 +53,8 @@
 }
 
 .details {
-  width: 40px;
+  width: 60px;
+  text-align: center;
 }
 
 /* ----- Table Content ---- */
