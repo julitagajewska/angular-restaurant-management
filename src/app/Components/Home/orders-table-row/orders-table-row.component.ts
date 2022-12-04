@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Order } from 'src/app/Models/order';
 import { Statuses } from 'src/app/Models/status';
 import { OrdersService } from 'src/app/Services/orders.service';
@@ -15,7 +16,7 @@ export class OrdersTableRowComponent implements OnInit {
   private _detailsToggle: boolean = false;
   private _toggleStatusChange: boolean = false;
 
-  constructor(private ordersService: OrdersService) { }
+  constructor(private ordersService: OrdersService, private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -36,6 +37,13 @@ export class OrdersTableRowComponent implements OnInit {
 
   toggleChange(): void {
     this.toggleStatusChange = !this.toggleStatusChange;
+  }
+
+  edit(): void {
+    let editModeToggle: boolean = true;
+    this.ordersService.loadToEdit(this.order);
+    this.ordersService.toggleEditMode(editModeToggle);
+    this.router.navigateByUrl('orders');
   }
 
   public get detailsToggle(): boolean {

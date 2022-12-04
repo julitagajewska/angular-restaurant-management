@@ -14,6 +14,9 @@ export class NewOrderTableComponent implements OnInit, OnDestroy {
   private _productsSubscription!: Subscription;
 
   constructor(private ordersService: OrdersService) {
+
+    this.products = this.ordersService.newOrderProductsArray;
+
     this.productsSubscription = this.ordersService.newOrderProductsArrayDataChange.subscribe(response => {
       this.products = response;
     });

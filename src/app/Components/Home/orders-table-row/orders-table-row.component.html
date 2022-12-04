@@ -30,6 +30,7 @@
   <div class="details__button-group">
     <button class="details__delete-button" (click)="deleteOrder()">Usuń</button>
     <button class="details__status-button" (click)="toggleChange()">Zmień status</button>
+    <button class="details__edit-button" (click)="edit()">Edytuj</button>
   </div>
 
   <div *ngIf="toggleStatusChange==true" class="status__button-group">

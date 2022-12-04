@@ -90,7 +90,8 @@
 }
 
 .details__delete-button,
-.details__status-button {
+.details__status-button,
+.details__edit-button {
   padding: 0.5rem 1rem 0.5rem 1rem;
   border-style: none;
   cursor: pointer;
@@ -99,12 +100,12 @@
 .details__delete-button:hover,
 .details__status-button:hover {}
 
-.details__delete-button {
+.details__delete-button,
+.details__status-button {
   margin-right: 0.75rem;
-
 }
 
-.details__status-button {}
+.details__edit-button {}
 
 .details__title {
   width: 90%;

@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { arrowRightShort } from 'ngx-bootstrap-icons';
 import { OrderedProduct } from 'src/app/Models/ordered-product';
 import { Product } from 'src/app/Models/product';
 import { OrdersService } from 'src/app/Services/orders.service';
@@ -11,22 +12,25 @@ import { OrdersService } from 'src/app/Services/orders.service';
 export class ProductItemComponent implements OnInit {
 
   @Input('productParentData') product!: Product;
-  private _buttonDisabled: boolean = false;
+  private _buttonDisabled!: boolean;
 
   constructor(private ordersService: OrdersService) {
     this.ordersService.buttonTogglesChange.subscribe(response => {
-      this.buttonDisabled = this.ordersService.buttonToggles[+this.product.productId];
+      this.buttonDisabled = response[+this.product.productId];
+      console.log(response[+this.product.productId])
     });
   }
 
   ngOnInit(): void {
-    this.ordersService.buttonToggles[+this.product.productId] = false;
+    this.buttonDisabled = this.ordersService.buttonToggles[+this.product.productId];
   }
 
   addProduct(): void {
     let newProduct = new OrderedProduct(this.product, 1)
     this.ordersService.addProduct(newProduct);
-    this.ordersService.buttonToggles[+this.product.productId] = true;
+
+    this.ordersService.toggleButton(this.product.productId, true);
+    // this.ordersService.buttonToggles[+this.product.productId] = true;
   }
 
   public get buttonDisabled(): boolean {

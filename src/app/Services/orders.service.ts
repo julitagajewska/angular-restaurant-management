@@ -23,11 +23,20 @@ export class OrdersService {
   private _newOrderProductsArray: OrderedProduct[] = [];
   private _newOrderProductsArrayDataChange: Subject<OrderedProduct[]> = new Subject<OrderedProduct[]>();
 
+  private _productsBackUp!: OrderedProduct[];
+  private _totalBackUp!: number;
+  private _togglesBackUp!: boolean[];
+
   private _totalPrice: number = 0;
   private _totalPriceChange: Subject<number> = new Subject<number>();
 
   private _buttonToggles: boolean[] = [];
   private _buttonTogglesChange: Subject<boolean[]> = new Subject<boolean[]>();
+
+  private _editMode: boolean = false;
+  private _editModeChange: Subject<boolean> = new Subject<boolean>();
+
+  private _editOrderId!: string;
 
   constructor(private http: HttpClient) {
 
@@ -46,9 +55,94 @@ export class OrdersService {
     this.ordersChange.subscribe((value) => {
       this.orders = value;
     });
+
+    this.editModeChange.subscribe((value) => {
+      this.editMode = value;
+    });
   }
 
   // -------- Orders ------- //
+
+  toggleEditMode(display: boolean): void {
+    this.editModeChange.next(display);
+    console.log("Edit mode change");
+    console.log(this.editMode);
+  }
+
+  loadToEdit(order: Order): void {
+    this.productsBackUp = this._newOrderProductsArray;
+    this.totalBackUp = this.totalPrice;
+    this.togglesBackUp = this.buttonToggles;
+
+    let productsToEdit: OrderedProduct[] = order.products;
+
+    let productsArray: Product[] = [];
+    productsToEdit.forEach(orderedProduct => {
+      productsArray.push(orderedProduct.product);
+    })
+
+    let editToggles: boolean[] = [];
+    this.products.forEach(product => {
+      editToggles[+product.productId] = false;
+    });
+
+    productsArray.forEach(product => {
+      editToggles[+product.productId] = true;
+    })
+
+    console.log(editToggles);
+
+    this.editOrderId = order.orderId;
+
+    this.orderArrayChange(productsToEdit);
+    this.sumChange(order.total);
+    this.changeButtonToggles(editToggles);
+  }
+
+  loadPrevious(): void {
+    this.orderArrayChange(this.productsBackUp);
+    this.sumChange(this.totalBackUp);
+    this.changeButtonToggles(this.togglesBackUp);
+    this.toggleEditMode(false);
+  }
+
+  saveEdit(): void {
+
+    let order!: Order;
+
+    this.orders.forEach(element => {
+      if(element.orderId == this.editOrderId){
+        order = element;
+      }
+    });
+
+    let newOrdersArray = this.orders;
+
+    newOrdersArray[newOrdersArray.findIndex(v =>
+      v.orderId === order.orderId)].products = this.newOrderProductsArray;
+
+    newOrdersArray[newOrdersArray.findIndex(v =>
+      v.orderId === order.orderId)].total = this.totalPrice;
+
+
+
+    let orderedProducts: OrderedProductType[] = this.convertToOrderProductType(order.products);
+
+    let orderType: OrderType;
+    orderType = {
+      orderId: order.orderId,
+      products: orderedProducts,
+      status: order.status,
+      total: this.totalPrice
+    };
+
+    this.editOrder(orderType).subscribe(response => {
+      console.log("Order edited");
+      this.changeOrders(newOrdersArray);
+      this.loadPrevious();
+    });
+
+  }
 
   changeStatus(order: Order, status: string): void {
 
@@ -59,28 +153,8 @@ export class OrdersService {
 
     order.status = status;
 
-
-
-    let orderedProducts: OrderedProductType[] = [];
     let inputProductsArray = order.products;
-
-    inputProductsArray.forEach(orderedProduct => {
-
-      let newProduct: ProductType = {
-        productId: orderedProduct.product.productId,
-        productName: orderedProduct.product.productName,
-        productPrice: orderedProduct.product.productPrice,
-        productImage: orderedProduct.product.productImage,
-        productCategory: orderedProduct.product.productCategory
-      };
-
-      let newOrderedProduct: OrderedProductType = {
-        product: newProduct,
-        quantity: orderedProduct.quantity
-      };
-
-      orderedProducts.push(newOrderedProduct);
-    });
+    let orderedProducts: OrderedProductType[] = this.convertToOrderProductType(inputProductsArray);
 
     let orderType: OrderType = {
       orderId: order.orderId,
@@ -111,10 +185,9 @@ export class OrdersService {
     this.orderArrayChange([]);
   }
 
-  saveOrder(): void {
-
+  convertToOrderProductType(ordered: OrderedProduct[]): OrderedProductType[] {
     let orderedProducts: OrderedProductType[] = [];
-    this.newOrderProductsArray.forEach(orderedProduct => {
+    ordered.forEach(orderedProduct => {
 
       let newProductType: ProductType = {
         productId: orderedProduct.product.productId,
@@ -130,8 +203,14 @@ export class OrdersService {
       }
 
       orderedProducts.push(newOrderedProduct);
-
     });
+
+    return orderedProducts;
+  }
+
+  saveOrder(): void {
+
+    let orderedProducts: OrderedProductType[] = this.convertToOrderProductType(this.newOrderProductsArray);
 
     let newOrderType: OrderType;
     newOrderType = {
@@ -147,11 +226,6 @@ export class OrdersService {
       newOrderType.status,
       newOrderType.total
     );
-
-    console.log("New order type");
-    console.log(newOrderType);
-    console.log("New order object");
-    console.log(newOrder);
 
     this.addOrder(newOrderType).subscribe(response => {
 
@@ -175,6 +249,13 @@ export class OrdersService {
   }
 
   // -------- Add/Remove Products --------- //
+
+  toggleButton(id: string, value: boolean): void {
+    let toggles: boolean[] = this.buttonToggles;
+    toggles[+id] = value;
+
+    this.changeButtonToggles(toggles);
+  }
 
   changeButtonToggles(toggles: boolean[]): void {
     this.buttonTogglesChange.next(toggles);
@@ -461,5 +542,47 @@ export class OrdersService {
   }
   public set ordersChange(value: Subject<Order[]>) {
     this._ordersChange = value;
+  }
+
+  public get productsBackUp(): OrderedProduct[] {
+    return this._productsBackUp;
+  }
+  public set productsBackUp(value: OrderedProduct[]) {
+    this._productsBackUp = value;
+  }
+
+  public get editModeChange(): Subject<boolean> {
+    return this._editModeChange;
+  }
+  public set editModeChange(value: Subject<boolean>) {
+    this._editModeChange = value;
+  }
+
+  public get editMode(): boolean {
+    return this._editMode;
+  }
+  public set editMode(value: boolean) {
+    this._editMode = value;
+  }
+
+  public get editOrderId(): string {
+    return this._editOrderId;
+  }
+  public set editOrderId(value: string) {
+    this._editOrderId = value;
+  }
+
+  public get totalBackUp(): number {
+    return this._totalBackUp;
+  }
+  public set totalBackUp(value: number) {
+    this._totalBackUp = value;
+  }
+
+  public get togglesBackUp(): boolean[] {
+    return this._togglesBackUp;
+  }
+  public set togglesBackUp(value: boolean[]) {
+    this._togglesBackUp = value;
   }
 }

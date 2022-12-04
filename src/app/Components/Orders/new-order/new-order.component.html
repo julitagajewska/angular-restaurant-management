@@ -1,20 +1,28 @@
 <div class="component__container">
   <div class="new-order__header">
-    <h2>Nowe zamówienie</h2>
+    <h2 *ngIf="editMode==true">Edycja zamówienia [ {{ editOrderId }} ]</h2>
+    <h2 *ngIf="editMode==false">Nowe zamówienie</h2>
   </div>
   <app-new-order-table></app-new-order-table>
 
   <div class="new-order__button-group" clickOutside (clickOutside)="clickedOutside()">
 
-    <div class="buttons__container">
+    <div class="buttons__container" *ngIf="editMode==false">
       <button class="cancel button" (click)="reset()">Resetuj</button>
       <p><b>Razem: </b> {{ total | number : '1.2-2' }} zł </p>
       <button class="save button" (click)="save()">Zapisz</button>
     </div>
 
+    <div class="buttons__container" *ngIf="editMode==true">
+      <button class="cancel button" (click)="cancel()">Anuluj</button>
+      <p><b>Razem: </b> {{ total | number : '1.2-2' }} zł </p>
+      <button class="save button" (click)="saveEdit()">Zapisz</button>
+    </div>
+
     <div class="confirm-alert__container">
       <div *ngIf="saveConfirm">
-        <span class="confirm_alert">Dodano zamówienie!</span>
+        <span class="confirm_alert" *ngIf="editMode==false">Dodano zamówienie!</span>
+        <span class="confirm_alert" *ngIf="editMode==true">Edytowano zamówienie!</span>
       </div>
     </div>
 
