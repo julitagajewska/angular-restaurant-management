@@ -5,8 +5,8 @@
       <h3>Rejestracja</h3>
     </div>
 
-    <div class="registeR__form">
-      <form class="login__form" [formGroup]="registerForm" (ngSubmit)='register()'>
+    <div>
+      <form class="register__form" [formGroup]="registerForm" (ngSubmit)='register()'>
 
         <input type="text" formControlName="username" placeholder="Nazwa użytkownika">
         <div *ngIf="getField('username')?.errors && getField('username')?.touched">

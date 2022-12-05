@@ -1,5 +1,5 @@
 .order__table-row {
-  background-color: sandybrown;
+  background-color: var(--table-row);
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -7,10 +7,13 @@
   font-size: 14px;
   margin-left: 15px;
   width: 600px;
+  border-bottom: solid 1px var(--table-row-border);
+  /* color: var(--font-light); */
+  font-weight: 500;
 }
 
 .order-details__table-row {
-  background-color: rgb(121, 163, 236);
+  background-color: var(--table-details);
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -54,13 +57,15 @@
 
 .details__product-row {
   width: 90%;
-  background-color: darksalmon;
+  background-color: var(--table-details-row);
   display: flex;
   flex-direction: row;
+  margin: 0.1rem;
+  vertical-align: center;
 }
 
 .product-name {
-  width: 200px;
+  width: 150px;
 }
 
 .product-price {
@@ -92,12 +97,20 @@
 .details__status-button,
 .details__edit-button {
   padding: 0.5rem 1rem 0.5rem 1rem;
+  background-color: var(--details-button);
+  border-radius: 4px;
   border-style: none;
   cursor: pointer;
+  color: var(--font-light);
+  font-weight: bold;
 }
 
 .details__delete-button:hover,
-.details__status-button:hover {}
+.details__status-button:hover,
+.details__edit-button:hover {
+  background-color: var(--table-header);
+  transition: all 0.3s ease 0s;
+}
 
 .details__delete-button,
 .details__status-button {
@@ -122,8 +135,50 @@
   justify-content: flex-end;
 }
 
-.proccessing__button {}
+.proccessing__button,
+.ready__button,
+.delivered__button {
+  background-color: var(--details-button);
+  color: var(--font-light);
+  padding: 0.5rem 1rem 0.5rem 1rem;
+  border-style: none;
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease 0s;
+}
 
-.ready__button {}
+.proccessing__button:hover,
+.ready__button:hover,
+.delivered__button:hover {
+  background-color: var(--table-header);
+}
+
+
+.proccessing__button {
+  margin-right: 1rem;
+}
+
+.ready__button {
+  margin-right: 1rem;
+}
 
 .delivered__button {}
+
+.details__button {
+  border-style: none;
+  background-color: var(--details-button);
+  border-radius: 20px;
+  padding: 0.25rem;
+  cursor: pointer;
+  transition: all 0.3s ease 0s;
+}
+
+.details__button:hover {
+  background-color: var(--table-header);
+}
+
+i-bs {
+  color: var(--font-light);
+}

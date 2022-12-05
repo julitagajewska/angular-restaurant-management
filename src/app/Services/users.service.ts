@@ -12,7 +12,7 @@ export class UsersService {
   private url: string = "http://localhost:7777/users";
   private _defaultUserImage: string = "https://plusvalleyadventure.com/wp-content/uploads/2020/11/default-user-icon-8.jpg";
 
-  private _isLoggedIn: boolean = true;
+  private _isLoggedIn!: boolean;
   private _loggedInChange: Subject<boolean> = new Subject<boolean>();
 
   private _loggedInUser!: User;
@@ -21,6 +21,10 @@ export class UsersService {
   users!: User[];
 
   constructor(private http: HttpClient) {
+
+    this.loadLoggedInUser().subscribe(response => {
+      console.log(response);
+    });
 
     this.getUsers().subscribe(response => {
       this.users = response;

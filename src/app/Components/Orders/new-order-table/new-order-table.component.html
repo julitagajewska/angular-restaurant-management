@@ -8,7 +8,7 @@
   </div>
 
     <div class="order-list">
-      <div *ngIf="products.length == 0">Dodaj produkty z listy dostępnych produktów.</div>
+      <div *ngIf="products.length == 0" class="no-products"><h4>Dodaj produkty z listy dostępnych produktów.</h4></div>
       <app-new-order-table-row *ngFor="let product of products" [productParentData]="product"></app-new-order-table-row>
     </div>
 

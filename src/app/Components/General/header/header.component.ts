@@ -10,8 +10,10 @@ import { UsersService } from 'src/app/Services/users.service';
 })
 export class HeaderComponent implements OnInit, OnDestroy {
 
-  isLoggedIn!: boolean;
-  logInSubscription!: Subscription;
+  private _isLoggedIn!: boolean;
+  private _buttonToggles: boolean[] = [false, false, false, false, false, false];
+
+  private logInSubscription!: Subscription;
 
   constructor(
     private userService: UsersService,
@@ -33,4 +35,27 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.router.navigateByUrl('');
   }
 
+  toggleButtons(index: number): void {
+    let i: number = 0;
+    for(i; i<this.buttonToggles.length; i++){
+      this.buttonToggles[i] = false;
+    }
+    this.buttonToggles[index] = true;
+    console.log(this.buttonToggles);
+  }
+
+  // ------ Getters/Setters ------- //
+
+  public get buttonToggles(): boolean[] {
+    return this._buttonToggles;
+  }
+  public set buttonToggles(value: boolean[]) {
+    this._buttonToggles = value;
+  }
+  public get isLoggedIn(): boolean {
+    return this._isLoggedIn;
+  }
+  public set isLoggedIn(value: boolean) {
+    this._isLoggedIn = value;
+  }
 }

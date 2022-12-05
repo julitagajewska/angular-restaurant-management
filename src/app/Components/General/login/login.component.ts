@@ -54,10 +54,10 @@ export class LoginComponent implements OnInit {
         this.wrongPassword = true;
         break;
       case 'success':
+        this.router.navigateByUrl('welcome');
         this.wrongUsername = false;
         this.wrongPassword = false;
         this.userService.logIn(this.loginForm.value.username);
-        this.router.navigateByUrl('home');
         break;
     }
   }

@@ -1,9 +1,11 @@
+<div class="component__container">
+
 <div class="reservations-form__container">
   <div class="exit-button__container">
     <button class="exit-button" (click)="goBack()"><i-bs name="x-lg"></i-bs></button>
   </div>
   <div class="reservation__header">
-    <h3 class="reservation_title">Edycja rezerwacji o id = {{ reservationId }} </h3>
+    <h3 class="reservation_title">Edycja rezerwacji [{{ reservationId }}] </h3>
   </div>
     <form class="reservation__form" [formGroup]="formModel" (ngSubmit)='updateReservation()'>
 
@@ -89,3 +91,8 @@
 
     </form>
 </div>
+
+</div>
+
+
+

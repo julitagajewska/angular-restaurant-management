@@ -16,7 +16,6 @@ import { HomeComponent } from './Components/Home/home/home.component';
 import { LoginComponent } from './Components/General/login/login.component';
 import { RegisterComponent } from './Components/General/register/register.component';
 import { ProfileComponent } from './Components/User-profile/profile/profile.component';
-import { ProfileDeleteComponent } from './Components/User-profile/profile-delete/profile-delete.component';
 
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
@@ -29,7 +28,6 @@ import { DatePipe } from '@angular/common';
 import { ClickOutsideDirective } from './Directives/click-outside.directive';
 import { ProfileChangePasswordComponent } from './Components/User-profile/profile-change-password/profile-change-password.component';
 import { ProfileDeleteSuccessComponent } from './Components/User-profile/profile-delete-success/profile-delete-success.component';
-import { WelcomeComponent } from './Components/General/welcome/welcome.component';
 import { NewOrderTableComponent } from './Components/Orders/new-order-table/new-order-table.component';
 import { NewOrderTableRowComponent } from './Components/Orders/new-order-table-row/new-order-table-row.component';
 import { PlnPipePipe } from './Pipes/pln-pipe.pipe';
@@ -40,6 +38,11 @@ import { OrdersTableComponent } from './Components/Home/orders-table/orders-tabl
 import { OrdersTableRowComponent } from './Components/Home/orders-table-row/orders-table-row.component';
 import { StatusColorDirective } from './Directives/status-color.directive';
 import { OrderOverviewDirective } from './Directives/order-overview.directive';
+import { HeaderButtonToggleDirective } from './Directives/header-button-toggle.directive';
+import { AccessDeniedComponent } from './Components/General/access-denied/access-denied.component';
+import { NotFoundComponent } from './Components/General/not-found/not-found.component';
+import { AlreadyLoggedInComponent } from './Components/General/already-logged-in/already-logged-in.component';
+import { WelcomeComponent } from './Components/General/welcome/welcome.component';
 
 
 @NgModule({
@@ -58,12 +61,10 @@ import { OrderOverviewDirective } from './Directives/order-overview.directive';
     LoginComponent,
     RegisterComponent,
     ProfileComponent,
-    ProfileDeleteComponent,
     ReservationEditComponent,
     ClickOutsideDirective,
     ProfileChangePasswordComponent,
     ProfileDeleteSuccessComponent,
-    WelcomeComponent,
     NewOrderTableComponent,
     NewOrderTableRowComponent,
     PlnPipePipe,
@@ -73,7 +74,12 @@ import { OrderOverviewDirective } from './Directives/order-overview.directive';
     OrdersTableComponent,
     OrdersTableRowComponent,
     StatusColorDirective,
-    OrderOverviewDirective
+    OrderOverviewDirective,
+    HeaderButtonToggleDirective,
+    AccessDeniedComponent,
+    NotFoundComponent,
+    AlreadyLoggedInComponent,
+    WelcomeComponent
   ],
   imports: [
     BrowserModule,

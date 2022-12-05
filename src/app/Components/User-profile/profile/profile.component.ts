@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { User, UserType } from 'src/app/Models/user';
 import { UsersService } from 'src/app/Services/users.service';
+import { isValidUrl } from 'src/app/Validators/url';
 
 @Component({
   selector: 'app-profile',
@@ -19,6 +20,7 @@ export class ProfileComponent implements OnInit {
   private _changesSavedAlert: boolean = false;
   private _changeImageContainer: boolean = false;
   private _toggleDelete: boolean = false;
+  private _savedAlert: boolean = false;
 
   private _userSubscription!: Subscription;
 
@@ -34,7 +36,7 @@ export class ProfileComponent implements OnInit {
 
     this.editImageForm = new FormGroup({
       imageURL: new FormControl('')
-    });
+    }, [isValidUrl('imageURL')]);
 
     this.editForm = new FormGroup({
       username: new FormControl(this.user?.username, Validators.compose([
@@ -54,6 +56,72 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  getField(field: any): AbstractControl | null{
+    return this.editForm.get(field);
+  }
+
+  changePassword(): void {
+    this.router.navigateByUrl('password_change');
+  }
+
+  editUser(): void {
+    let newUser: UserType = {
+      userId: this.user.userId,
+      username: this.editForm.value.username,
+      mail: this.editForm.value.mail,
+      phone: this.editForm.value.phone,
+      password: this.user.password,
+      imageURL: this.user.imageURL
+    }
+
+    this.savedAlert = true;
+    this.usersService.saveEditChanges(newUser);
+  }
+
+
+  editImage(): void {
+    let newUser: UserType = {
+      userId: this.user.userId,
+      username: this.user.username,
+      mail: this.user.mail,
+      phone: this.user.phone,
+      password: this.user.password,
+      imageURL: this.editImageForm.value.imageURL
+    }
+
+    console.log("Save toggle");
+    console.log(this.editForm.errors);
+
+    this.usersService.saveEditChanges(newUser);
+  }
+
+  clickedOutside(): void {
+    this.changeImageContainer = false;
+    console.log("Clicked outside " + this.savedAlert);
+    this.savedAlert = false;
+  }
+
+  toggleImageChange(): void {
+    this.changeImageContainer = true;
+  }
+
+  toggleDeleteUser(): void {
+    this.toggleDelete = !this.toggleDelete;
+  }
+
+
+  deleteUser(): void {
+    this.usersService.deleteUser(this._user);
+    this.router.navigateByUrl('delete_success');
+  }
+
+  public get savedAlert(): boolean {
+    return this._savedAlert;
+  }
+  public set savedAlert(value: boolean) {
+    this._savedAlert = value;
   }
 
   public get user(): User {
@@ -102,56 +170,4 @@ export class ProfileComponent implements OnInit {
     this._toggleDelete = value;
   }
 
-
-  getField(field: any): AbstractControl | null{
-    return this.editForm.get(field);
-  }
-
-  changePassword(): void {
-    this.router.navigateByUrl('password_change');
-  }
-
-  editUser(): void {
-    let newUser: UserType = {
-      userId: this.user.userId,
-      username: this.editForm.value.username,
-      mail: this.editForm.value.mail,
-      phone: this.editForm.value.phone,
-      password: this.user.password,
-      imageURL: this.user.imageURL
-    }
-
-    this.usersService.saveEditChanges(newUser);
-  }
-
-
-  editImage(): void {
-    let newUser: UserType = {
-      userId: this.user.userId,
-      username: this.user.username,
-      mail: this.user.mail,
-      phone: this.user.phone,
-      password: this.user.password,
-      imageURL: this.editImageForm.value.imageURL
-    }
-
-    this.usersService.saveEditChanges(newUser);
-  }
-
-  clickedOutside(): void {
-    this.changeImageContainer = false;
-  }
-
-  toggleImageChange(): void {
-    this.changeImageContainer = true;
-  }
-
-  toggleDeleteUser(): void {
-    this.toggleDelete = !this.toggleDelete;
-  }
-
-  deleteUser(): void {
-    this.usersService.deleteUser(this._user);
-    this.router.navigateByUrl('delete_success');
-  }
 }

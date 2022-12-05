@@ -3,6 +3,7 @@
     <div class="login__header">
       <h3 class="login__title">Logowanie</h3>
     </div>
+
       <form class="login__form" [formGroup]="loginForm" (ngSubmit)='login()'>
         <input type="text" formControlName="username" placeholder="Nazwa użytkownika">
         <div class="danger_alert" *ngIf="wrongUsername">

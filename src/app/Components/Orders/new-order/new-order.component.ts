@@ -60,6 +60,7 @@ export class NewOrderComponent implements OnInit, OnDestroy {
 
   cancel(): void {
     this.ordersService.loadPrevious();
+    this.router.navigateByUrl('home');
   }
 
   saveEdit(): void {

@@ -1,5 +1,5 @@
 .today-reservations__table-row {
-  background-color: sandybrown;
+  background-color: var(--table-row);
   display: flex;
   flex-direction: row;
   align-items: center;

@@ -1,1 +1,10 @@
-<p>welcome works!</p>
+<div class="component__container">
+  <div *ngIf="isLoggedIn==true" class="welcome__container">
+    <h3>Zalogowano pomyślnie!</h3>
+    <p>Teraz możesz korzystać ze strony.</p>
+  </div>
+
+  <div *ngIf="isLoggedIn==false" class="welcome__container">
+    <h3>Zaloguj się, aby móc korzystać ze strony.</h3>
+  </div>
+</div>

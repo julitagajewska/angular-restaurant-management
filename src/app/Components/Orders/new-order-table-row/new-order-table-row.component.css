@@ -1,5 +1,5 @@
 .new-order__table-row {
-  background-color: peachpuff;
+  background-color: rgba(255, 255, 255, 0.2);
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -37,4 +37,16 @@
 
 .delete {
   width: 60px;
+}
+
+button {
+  border-style: none;
+  cursor: pointer;
+  transition: all 0.3s ease 0s;
+
+}
+
+button:hover {
+  background-color: rgb(145, 175, 202);
+  color: var(--font-light);
 }

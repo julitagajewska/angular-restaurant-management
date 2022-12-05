@@ -24,21 +24,69 @@
   flex-direction: center;
 }
 
-.login__title {}
+.login__title {
+  padding-top: 1rem;
+  font-weight: bold;
+}
 
-.login__form {}
+.login__form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
 
-input {
+input[type="text"],
+input[type="password"] {
   display: block;
+  width: 250px;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border-style: none;
+  background-color: var(--input-background);
+  border-radius: 4px;
+
 }
 
 .login__button-group {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: center;
+  width: 100%;
 }
 
-.login__register-button {}
+.login__register-button {
+  margin: 0.5rem 1rem 2rem 0;
+}
 
-.login__login-button {}
+.login__login-button {
+  margin: 0.5rem 0 2rem 1rem;
+}
+
+.login__login-button,
+.login__register-button {
+  padding: 1rem 1.5rem 1rem 1.5rem;
+  border: none;
+  cursor: pointer;
+  background-color: transparent;
+  border-radius: 4px;
+  text-decoration: none;
+  text-align: center;
+  transition: all 0.3s ease 0s;
+  background-color: var(--form-button);
+  color: var(--font-light);
+  width: 150px;
+}
+
+.login__login-button:hover,
+.login__register-button:hover {
+  background-color: var(--form-button-hover);
+}
+
+input[type="submit"]:disabled {
+  background-color: var(--form-button-hover);
+  color: var(--font-medium);
+  cursor: auto;
+}

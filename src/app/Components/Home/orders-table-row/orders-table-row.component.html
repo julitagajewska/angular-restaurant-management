@@ -5,18 +5,18 @@
   <div class="price cell"> {{ order.total | plnPipe }} </div>
 
   <div class="details cell" *ngIf="detailsToggle==false">
-    <button (click)="showDetails()"><i-bs name="chevron-down"></i-bs></button>
+    <button (click)="showDetails()" class="details__button"><i-bs name="chevron-down"></i-bs></button>
   </div>
 
   <div class="details cell" *ngIf="detailsToggle==true">
-    <button (click)="showDetails()"><i-bs name="chevron-up"></i-bs></button>
+    <button (click)="showDetails()" class="details__button"><i-bs name="chevron-up"></i-bs></button>
   </div>
 
 </div>
 <div class="order-details__table-row" *ngIf="detailsToggle==true">
 
   <div class="details__title">
-    <div>Zamówione produkty</div>
+    <div><b>Zamówione produkty</b></div>
   </div>
 
   <div class="ordered-products" *ngFor="let product of order.products">

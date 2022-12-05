@@ -1,20 +1,20 @@
 <header>
 
   <ng-container *ngIf="isLoggedIn">
-    <a routerLink="user_profile" class="header__left-link">Profil użytkownika</a>
+    <a routerLink="user_profile" class="header__left-link" (click)="toggleButtons(0)" [class.active]="buttonToggles[0] == true">Profil użytkownika</a>
 
     <div class="header__button-group">
-      <a routerLink="reservations">Rezerwacja</a>
-      <a routerLink="home" class="active">Strona główna</a>
-      <a routerLink="orders">Zamówienie</a>
+      <a routerLink="reservations" (click)="toggleButtons(1)" [class.active]="buttonToggles[1] == true">Rezerwacja</a>
+      <a routerLink="home" (click)="toggleButtons(2)" [class.active]="buttonToggles[2] == true">Strona główna</a>
+      <a routerLink="orders" (click)="toggleButtons(3)" [class.active]="buttonToggles[3] == true">Zamówienie</a>
     </div>
 
-    <button class="header__right-button" (click)="logOut()">Wyloguj</button>
+    <button class="header__right-button" (click)="logOut()" (click)="toggleButtons(4)" [class.active]="buttonToggles[4] == true">Wyloguj</button>
   </ng-container>
 
   <ng-container *ngIf="!isLoggedIn">
-    <h3>Ładna nazwa</h3>
-    <a routerLink="login" class="header__right-link">Zaloguj się</a>
+    <h3>Nazwa restauracji</h3>
+    <a routerLink="login" class="header__right-link" (click)="toggleButtons(5)" [class.active]="buttonToggles[5] == true">Zaloguj się</a>
   </ng-container>
 
 </header>

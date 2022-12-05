@@ -1,5 +1,5 @@
 .new-order__table-header {
-  background-color: sandybrown;
+  background-color: var(--form-button-hover);
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -7,6 +7,8 @@
   font-size: 14px;
   font-weight: bold;
   width: 560px;
+  color: var(--font-light);
+  border-radius: 4px 4px 0 0;
 }
 
 .cell {
@@ -39,4 +41,11 @@
 .order-list {
   height: 384px;
   overflow: auto;
+}
+
+.no-products {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

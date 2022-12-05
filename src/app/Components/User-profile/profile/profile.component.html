@@ -1,86 +1,112 @@
 <div class="component__container">
-  <div class="user-profile__header">
-    <div>
-      <div class="user-profile__picture-container" clickOutside (clickOutside)="clickedOutside()">
-        <img class="user-profile__picture" [src]="[user.imageURL]">
-        <button (click)="toggleImageChange()">+</button>
 
-        <div class="user-profile__new-image" *ngIf="changeImageContainer">
-          <form [formGroup]="editImageForm" (ngSubmit)='editImage()'>
-            <input type="text" formControlName="imageURL" placeholder="URL zdjęcia" [value]="[user.imageURL]">
-            <button (click)="editImage()">Zmień zdjecie</button>
-          </form>
+  <div class="profile__container">
+    <div class="user-profile__header" (clickOutside)="clickedOutside()">
+
+      <div class="picture-and-username">
+        <div class="user-profile__picture-container">
+          <img class="user-profile__picture" [src]="[user.imageURL]">
+          <!-- <button (click)="toggleImageChange()" class="add-picture__button">+</button> -->
         </div>
-      </div>
 
-      <h3 class="user-profile__username"> {{ user.username }}</h3>
-    </div>
-    <div>
-      <button class="user-profile__delete-button" (click)="toggleDeleteUser()"> Usuń konto</button>
-    </div>
-  </div>
-
-  <div class="user-profile__eddit-form">
-    <form [formGroup]="editForm" (ngSubmit)='editUser()'>
-      <div class="user-profile__username">
-        <label>Nazwa użytkownika</label>
-        <input type="text" formControlName="username" placeholder="Nazwa użytkownika" [value]="[user.username]">
-          <div *ngIf="getField('username')?.errors && getField('username')?.touched">
-            <div *ngIf="getField('username')?.errors?.['required']" class="danger_alert">
-              Nazwa użytkownika jest wymagana
-            </div>
-            <div *ngIf="getField('username')?.errors?.['maxlength']" class="danger_alert">
-              Nazwa użytkownika jest za dłluga [5-10 znaków]
-            </div>
-            <div *ngIf="getField('username')?.errors?.['minlength']" class="danger_alert">
-              Nazwa użytkownika jest za krótka [5-10 znaków]
+        <div class="username-and-input">
+          <div>
+            <div>
+              <p class="user-profile__username"><b>{{ user.username }}</b></p>
             </div>
           </div>
-      </div>
 
-      <div class="user-profile__mail">
-        <label>Adres e-mail</label>
-        <input type="mail" formControlName="mail" placeholder="Adres e-mail" [value]="[user.mail]">
-        <div *ngIf="getField('mail')?.errors && getField('mail')?.touched">
-          <div *ngIf="getField('mail')?.errors?.['required']" class="danger_alert">
-            Adres e-mail jest wymagany
-          </div>
-          <div *ngIf="getField('mail')?.errors?.['pattern']" class="danger_alert">
-            Nieprawidłowy adres e-mail
-          </div>
+          <!-- <div class="user-profile__new-image" *ngIf="changeImageContainer">
+            <form [formGroup]="editImageForm" (ngSubmit)='editImage()'>
+              <input type="text" class="image-URL-input" formControlName="imageURL" placeholder="URL zdjęcia" [value]="[user.imageURL]">
+            </form>
+            <button (click)="editImage()" class="save-image__button">ok</button>
+            <div *ngIf="editImageForm.errors?.['urlError']  && getField('imageURL')?.touched" class="danger_alert">
+              Błędny URL
+            </div>
+          </div> -->
         </div>
+
       </div>
 
-      <div class="user-profile__phone">
-        <label>Numer telefonu</label>
-        <input type="tel" formControlName="phone" placeholder="Numer telefonu" maxlength="9" [value]="[user.phone]">
-        <div *ngIf="getField('phone')?.errors && getField('phone')?.touched">
-          <div *ngIf="getField('phone')?.errors?.['required']" class="danger_alert">
-            Numer telefonu jest wymagany
-          </div>
-          <div *ngIf="getField('phone')?.errors?.['pattern']" class="danger_alert">
-            Nieprawidłowy numer telefonu
-          </div>
-        </div>
+      <div>
+        <button class="user-profile__delete-button" (click)="toggleDeleteUser()">Usuń</button>
       </div>
 
-    </form>
-    <div class="user-profile__button-group">
-      <button (click)="editUser()">Zapisz zmiany</button>
-      <button (click)="changePassword()">Zmień hasło</button>
     </div>
-  </div>
 
-  <div *ngIf="toggleDelete">
-    <div class="delete-user__modal">
-      <h3>Usuwanie użytkownika</h3>
-      <p>Czy na pewno chcesz usunąć użytkownika <b>{{ user.username }}</b> ?</p>
-      <button (click)="toggleDeleteUser()"> Powróć</button>
-      <button (click)="deleteUser()"> Usuń </button>
-    </div>
-    <div class="overlay">
+      <div class="user-profile__eddit-form">
+            <form [formGroup]="editForm" (ngSubmit)='editUser()'>
+              <div class="user-profile__username-input">
+                <label>Nazwa użytkownika</label>
+                <input type="text" class="input-username" formControlName="username" placeholder="Nazwa użytkownika" [value]="[user.username]">
+                  <div *ngIf="getField('username')?.errors && getField('username')?.touched">
+                    <div *ngIf="getField('username')?.errors?.['required']" class="danger_alert">
+                      Nazwa użytkownika jest wymagana
+                    </div>
+                    <div *ngIf="getField('username')?.errors?.['maxlength']" class="danger_alert">
+                      Nazwa użytkownika jest za dłluga [5-10 znaków]
+                    </div>
+                    <div *ngIf="getField('username')?.errors?.['minlength']" class="danger_alert">
+                      Nazwa użytkownika jest za krótka [5-10 znaków]
+                    </div>
+                  </div>
+              </div>
+
+              <div class="user-profile__mail">
+                <label>Adres e-mail</label>
+                <input type="mail" class="input-mail" formControlName="mail" placeholder="Adres e-mail" [value]="[user.mail]">
+                <div *ngIf="getField('mail')?.errors && getField('mail')?.touched">
+                  <div *ngIf="getField('mail')?.errors?.['required']" class="danger_alert">
+                    Adres e-mail jest wymagany
+                  </div>
+                  <div *ngIf="getField('mail')?.errors?.['pattern']" class="danger_alert">
+                    Nieprawidłowy adres e-mail
+                  </div>
+                </div>
+              </div>
+
+              <div class="user-profile__phone">
+                <label>Numer telefonu</label>
+                <input class="input-phone" type="tel" formControlName="phone" placeholder="Numer telefonu" maxlength="9" [value]="[user.phone]">
+                <div *ngIf="getField('phone')?.errors && getField('phone')?.touched">
+                  <div *ngIf="getField('phone')?.errors?.['required']" class="danger_alert">
+                    Numer telefonu jest wymagany
+                  </div>
+                  <div *ngIf="getField('phone')?.errors?.['pattern']" class="danger_alert">
+                    Nieprawidłowy numer telefonu
+                  </div>
+                </div>
+              </div>
+
+            </form>
+
+          </div>
+
+          <div>
+            <div class="user-profile__button-group">
+              <button (click)="editUser()">Zapisz zmiany</button>
+              <button (click)="changePassword()">Zmień hasło</button>
+            </div>
+          </div>
+
+
+          <div *ngIf="toggleDelete">
+            <div class="delete-user__modal">
+              <h3>Usuwanie użytkownika</h3>
+              <p>Czy na pewno chcesz usunąć użytkownika <b>{{ user.username }}</b> ?</p>
+              <div class="modal__button-group">
+                <button (click)="toggleDeleteUser()"> Powróć</button>
+                <button (click)="deleteUser()"> Usuń </button>
+              </div>
+
+            </div>
+            <div class="overlay">
+
+            </div>
+          </div>
+
 
     </div>
-  </div>
 
 </div>

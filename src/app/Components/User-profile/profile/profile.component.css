@@ -1,14 +1,52 @@
 .delete-user__modal {
+  background-color: var(--form-button-hover);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  border: 1px solid black;
   border-radius: 4px;
   z-index: 10;
-  background-color: white;
   width: 500px;
   max-width: 80%;
+  width: 30rem;
+  height: 20rem;
+  color: var(--font-light);
+  padding: 1rem;
+}
+
+.modal__button-group {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.modal__button-group button {
+  background-color: var(--table-header);
+  cursor: pointer;
+  border-style: none;
+  font-size: 16px;
+  padding: 0.5rem 1rem 0.5rem 1rem;
+  color: var(--font-light);
+  transition: all 0.3s ease 0s;
+}
+
+.modal__button-group button:hover {
+  background-color: var(--input-background);
+  color: var(--font-dark);
+}
+
+.delete-user__modal h3,
+.delete-user__modal p {
+  text-align: center;
+}
+
+.modal__button-group h3 {
+  display: inline;
+  align-self: center;
 }
 
 .overlay {
@@ -18,4 +56,191 @@
   right: 0;
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.5);
+}
+
+.component__container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile__container {
+  background-color: var(--body-container);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 4px;
+  width: 30rem;
+  padding: 2rem;
+}
+
+.user-profile__header {
+  width: 30rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.user-profile__picture-container {
+  position: relative;
+  top: 0;
+}
+
+.header__container {
+  width: 7rem;
+  height: 7rem;
+  background-color: bisque;
+}
+
+input {
+  display: block;
+}
+
+.user-profile__button-group {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 30rem;
+}
+
+.user-profile__button-group button {
+  border-style: none;
+  padding: 0.5rem 1rem 0.5rem 1rem;
+  background-color: var(--table-header);
+  width: 9rem;
+  color: var(--font-light);
+  cursor: pointer;
+  transition: all 0.3s ease 0s;
+}
+
+.user-profile__delete-button {
+  border-style: none;
+  padding: 0.5rem 1rem 0.5rem 1rem;
+  background-color: var(--table-header);
+  color: var(--font-light);
+  cursor: pointer;
+  margin-right: 1rem;
+  transition: all 0.3s ease 0s;
+}
+
+.user-profile__button-group button:hover,
+.user-profile__delete-button:hover {
+  background-color: var(--form-button-hover);
+}
+
+.user-profile__new-image {
+  height: 2rem;
+  width: 15rem;
+  display: flex;
+  flex-direction: row;
+}
+
+.save-image__button {
+  height: 25px;
+  width: 30px;
+  border-style: none;
+  padding: 3px;
+  background-color: var(--table-header);
+  cursor: pointer;
+  color: var(--font-light);
+  transition: all 0.3s ease 0s;
+}
+
+.save-image__button:hover {
+  background-color: var(--form-button-hover);
+}
+
+.picture-and-username {
+  display: flex;
+  flex-direction: row;
+}
+
+.username-and-input {
+  padding-left: 2rem;
+  width: 15rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.add-picture__button {
+  position: absolute;
+  left: 70px;
+  bottom: 0;
+  background-color: var(--form-button-hover);
+  border-style: none;
+  border-radius: 50%;
+  color: var(--font-light);
+  cursor: pointer;
+  width: 25px;
+  height: 25px;
+  transition: all 0.3s ease 0s;
+}
+
+.add-picture__button:hover {
+  background-color: rgb(86, 142, 194);
+}
+
+img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0px 0px 43px -10px rgba(97, 120, 146, 1);
+}
+
+.avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+
+.user-profile__username {
+  font-size: 24px;
+  margin: 35px 0 0 0;
+}
+
+.input-username,
+.input-mail,
+.input-phone {
+  border-style: none;
+  padding: 0.5rem;
+  width: 23rem;
+}
+
+.user-profile__username-input,
+.user-profile__mail,
+.user-profile__phone {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.danger_alert {
+  display: block;
+  color: var(--alert-red);
+  font-size: 14px;
+  animation: fadeIn 1s;
+  padding: 1rem 0 0 0;
+}
+
+.confirm_alert {
+  color: var(--alert-green);
+  font-size: 14px;
+  animation: fadeIn 1s;
+}
+
+.image-URL-input {
+  border-style: none;
+  padding: 0.25rem;
 }

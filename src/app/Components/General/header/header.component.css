@@ -1,0 +1,98 @@
+header {
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--header-background);
+}
+
+.header__button-group a {
+  color: var(--font-light);
+  text-decoration: none;
+  background-color: transparent;
+  margin: 0 0.5rem 0 0.5rem;
+  padding: 0.25rem 1rem 0.25rem 1rem;
+  border-radius: 50px;
+  transition: all 0.3s ease 0s;
+  font-weight: 300;
+}
+
+.header__button-group .active {
+  color: var(--font-light);
+  text-decoration: none;
+  background-color: var(--header-button-main-active);
+  margin: 0 0.5rem 0 0.5rem;
+  padding: 0.25rem 1rem 0.25rem 1rem;
+  border-radius: 50px;
+  transition: all 0.3s ease 0s;
+  font-weight: 300;
+}
+
+.header__button-group .hidden {
+  background-color: transparent;
+}
+
+.header__button-group a:hover {
+  background-color: var(--header-button-main-active);
+}
+
+.header__button-group .active a:hover {
+  background-color: var(--header-button-hover-main-active);
+}
+
+
+.header__left-link {
+  color: var(--font-dark);
+  text-decoration: none;
+  margin: 0 0.5rem 0 0.5rem;
+  padding: 0.25rem 1rem 0.25rem 1rem;
+  border-radius: 50px;
+  transition: all 0.3s ease 0s;
+  font-weight: bold;
+  margin-left: 1rem;
+}
+
+.header__right-button {
+  color: var(--font-dark);
+  background-color: transparent;
+  border-style: none;
+  margin: 0 0.5rem 0 0.5rem;
+  padding: 0.25rem 1rem 0.25rem 1rem;
+  border-radius: 50px;
+  transition: all 0.3s ease 0s;
+  font-weight: bold;
+  font-size: 16px;
+  margin-right: 1rem;
+  cursor: pointer;
+}
+
+.header__left-link:hover,
+.header__right-button:hover {
+  background-color: var(--header-button-main-active);
+  color: var(--font-light);
+}
+
+.header__left-link.active,
+.header__right-button.active {
+  background-color: var(--header-button-main-active);
+  color: var(--font-light);
+}
+
+.header__right-link {
+  color: var(--font-light);
+  text-decoration: none;
+  margin: 0 0.5rem 0 0.5rem;
+  padding: 0.25rem 1rem 0.25rem 1rem;
+  border-radius: 50px;
+  transition: all 0.3s ease 0s;
+  font-weight: bold;
+  margin-left: 1rem;
+}
+
+.header__right-link:hover {
+  background-color: var(--header-button-hover-main);
+}
+
+h3 {
+  margin-left: 1rem;
+}
