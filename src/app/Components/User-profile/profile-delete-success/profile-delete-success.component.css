@@ -1,0 +1,33 @@
+.component__container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.pasword-delete__component {
+  background-color: var(--body-container);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  width: 25rem;
+  padding: 0.5rem 2rem 1rem 2rem;
+}
+
+button {
+  border-style: none;
+  padding: 0.5rem 1rem 0.5rem 1rem;
+  background-color: var(--table-header);
+  color: var(--font-light);
+  cursor: pointer;
+  margin-right: 1rem;
+  transition: all 0.3s ease 0s;
+}
+
+button:hover {
+  background-color: var(--form-button-hover);
+}

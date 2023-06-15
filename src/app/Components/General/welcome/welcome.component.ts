@@ -9,32 +9,18 @@ import { UsersService } from 'src/app/Services/users.service';
 })
 export class WelcomeComponent implements OnInit {
 
-  private _isLoggedIn!: boolean;
-  private _user!: User;
+  isLoggedIn!: boolean;
+  user!: User;
 
   constructor(private usersService: UsersService) {
-    this._isLoggedIn = this.usersService.isLoggedIn;
+    this.isLoggedIn = this.usersService.isLoggedIn;
 
     this.usersService.loggedInChange.subscribe(response => {
-      this._isLoggedIn = response;
+      this.isLoggedIn = response;
     });
-
-    // this.usersService.userChange.subscribe(response => {
-    //   this._user = response;
-    // })
    }
 
-  ngOnInit(): void {
-
-  }
-
-  public get isLoggedIn(): boolean {
-    return this._isLoggedIn;
-  }
-
-  public get user(): User {
-    return this._user;
-  }
+  ngOnInit(): void { }
 
 
 }

@@ -12,7 +12,7 @@ import { OrdersService } from 'src/app/Services/orders.service';
 export class ProductItemComponent implements OnInit {
 
   @Input('productParentData') product!: Product;
-  private _buttonDisabled!: boolean;
+  buttonDisabled!: boolean;
 
   constructor(private ordersService: OrdersService) {
     this.ordersService.buttonTogglesChange.subscribe(response => {
@@ -30,15 +30,5 @@ export class ProductItemComponent implements OnInit {
     this.ordersService.addProduct(newProduct);
 
     this.ordersService.toggleButton(this.product.productId, true);
-    // this.ordersService.buttonToggles[+this.product.productId] = true;
   }
-
-  public get buttonDisabled(): boolean {
-    return this._buttonDisabled;
-  }
-  public set buttonDisabled(value: boolean) {
-    this._buttonDisabled = value;
-  }
-
-
 }

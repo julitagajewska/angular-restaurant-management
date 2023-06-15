@@ -8,11 +8,10 @@ import { catchError, map, Observable, of, tap } from 'rxjs';
 })
 export class ReservationsServiceService {
 
-  private url: string = "http://localhost:7777/reservations";
-  private _reservations!: Reservation[];
+  url: string = "http://localhost:7777/reservations";
+  reservations!: Reservation[];
 
   constructor(private http: HttpClient) { }
-
 
   getReservations(): Observable<Reservation[]> {
     return this.http.get<Reservation[]>(this.url)
@@ -32,7 +31,7 @@ export class ReservationsServiceService {
   }
 
   getReservation(id: string): Observable<Reservation> {
-    const url = `http://localhost:7777/reservations/${id}`;
+    const url:string = `http://localhost:7777/reservations/${id}`;
     return this.http.get<ReservationType>(url).pipe(map(reservation => {
       this.log(`fetched reservation with id = ${id}`)
       return new Reservation(
@@ -54,7 +53,7 @@ export class ReservationsServiceService {
   }
 
   deleteReservation(id: string): Observable<void> {
-    const url = `http://localhost:7777/reservations/${id}`;
+    const url:string = `http://localhost:7777/reservations/${id}`;
     return this.http.delete<void>(url).pipe(
       tap(_ => this.log(`deleted reservation with id=${id}`)),
       catchError(this.handleError<any>('updateHero'))
@@ -62,7 +61,7 @@ export class ReservationsServiceService {
   }
 
   editReservation(reservation: ReservationType): Observable<ReservationType> {
-    const url = `http://localhost:7777/reservations/${reservation.reservationId}`;
+    const url:string = `http://localhost:7777/reservations/${reservation.reservationId}`;
     return this.http.put<Reservation>(url, reservation).pipe(
       tap((newReservation: ReservationType) => this.log(`edited reservation w/ id=${reservation.reservationId}`)),
       catchError(this.handleError<ReservationType>('editReservation'))
@@ -76,18 +75,9 @@ export class ReservationsServiceService {
 
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
-
       console.error(error);
       this.log(`${operation} failed: ${error.message}`);
       return of(result as T);
     };
   }
-
-  public get reservations(): Reservation[] {
-    return this._reservations;
-  }
-  public set reservations(value: Reservation[]) {
-    this._reservations = value;
-  }
-
 }

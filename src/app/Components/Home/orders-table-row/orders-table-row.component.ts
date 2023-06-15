@@ -13,9 +13,9 @@ export class OrdersTableRowComponent implements OnInit {
 
   @Input('orderParentData') order!: Order;
 
-  private _detailsToggle: boolean = false;
-  private _toggleStatusChange: boolean = false;
-  private _orderOverview: string = '';
+  detailsToggle: boolean = false;
+  toggleStatusChange: boolean = false;
+  orderOverview: string = '';
 
   constructor(private ordersService: OrdersService, private router: Router) { }
 
@@ -68,26 +68,5 @@ export class OrdersTableRowComponent implements OnInit {
     this.ordersService.loadToEdit(this.order);
     this.ordersService.toggleEditMode(editModeToggle);
     this.router.navigateByUrl('orders');
-  }
-
-  public get detailsToggle(): boolean {
-    return this._detailsToggle;
-  }
-  public set detailsToggle(value: boolean) {
-    this._detailsToggle = value;
-  }
-
-  public get toggleStatusChange(): boolean {
-    return this._toggleStatusChange;
-  }
-  public set toggleStatusChange(value: boolean) {
-    this._toggleStatusChange = value;
-  }
-
-  public get orderOverview(): string {
-    return this._orderOverview;
-  }
-  public set orderOverview(value: string) {
-    this._orderOverview = value;
   }
 }

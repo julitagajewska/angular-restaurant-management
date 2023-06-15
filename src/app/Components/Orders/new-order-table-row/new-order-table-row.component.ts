@@ -9,7 +9,7 @@ import { OrdersService } from 'src/app/Services/orders.service';
 })
 export class NewOrderTableRowComponent implements OnInit {
 
-  private _disableDecreaseButton: boolean = false;
+  disableDecreaseButton: boolean = false;
 
   @Input('productParentData') product!: OrderedProduct;
   constructor(private ordersService: OrdersService) { }
@@ -32,18 +32,9 @@ export class NewOrderTableRowComponent implements OnInit {
     if(this.product.quantity == 0) {
       this.disableDecreaseButton = true;
     }
-
   }
 
   remove(): void {
     this.ordersService.removeProduct(this.product);
-  }
-
-  public get disableDecreaseButton(): boolean {
-    return this._disableDecreaseButton;
-  }
-
-  public set disableDecreaseButton(value: boolean) {
-    this._disableDecreaseButton = value;
   }
 }

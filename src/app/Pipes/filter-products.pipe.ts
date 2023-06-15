@@ -10,7 +10,7 @@ export class FilterProductsPipe implements PipeTransform {
     if (!filterValue) {
       return value;
     }
-    const filteredList = value.filter(product => {
+    const filteredList: Product[] = value.filter(product => {
       return product.productName.toLowerCase().includes(filterValue.toLowerCase());
     });
     return filteredList;

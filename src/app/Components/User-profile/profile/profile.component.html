@@ -6,7 +6,6 @@
       <div class="picture-and-username">
         <div class="user-profile__picture-container">
           <img class="user-profile__picture" [src]="[user.imageURL]">
-          <!-- <button (click)="toggleImageChange()" class="add-picture__button">+</button> -->
         </div>
 
         <div class="username-and-input">
@@ -15,16 +14,6 @@
               <p class="user-profile__username"><b>{{ user.username }}</b></p>
             </div>
           </div>
-
-          <!-- <div class="user-profile__new-image" *ngIf="changeImageContainer">
-            <form [formGroup]="editImageForm" (ngSubmit)='editImage()'>
-              <input type="text" class="image-URL-input" formControlName="imageURL" placeholder="URL zdjęcia" [value]="[user.imageURL]">
-            </form>
-            <button (click)="editImage()" class="save-image__button">ok</button>
-            <div *ngIf="editImageForm.errors?.['urlError']  && getField('imageURL')?.touched" class="danger_alert">
-              Błędny URL
-            </div>
-          </div> -->
         </div>
 
       </div>

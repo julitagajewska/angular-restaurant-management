@@ -24,8 +24,6 @@ export class ReservationEditComponent implements OnInit {
   reservationTime!: Time;
   changesSavedAlert: boolean = false;
 
-
-
   constructor(
     private activatedRoute: ActivatedRoute,
     private reservationsService: ReservationsServiceService,
@@ -56,7 +54,7 @@ export class ReservationEditComponent implements OnInit {
           Validators.pattern(/^[0-9]*$/)
         ])),
         additionalInformation: new FormControl(''),
-      },[dateMatch('date'),
+      },[dateMatch('date', 'time'),
          timeMatch('date', 'time'),
          textareaToLong('additionalInformation'),
          phoneToShort('phone'),
@@ -69,8 +67,8 @@ export class ReservationEditComponent implements OnInit {
   }
 
   updateReservation(): void{
-    let newDate = new Date(this.formModel.value.date);
-    let timeArray = this.formModel.value.time.split(":");
+    let newDate: Date = new Date(this.formModel.value.date);
+    let timeArray: string[] = this.formModel.value.time.split(":");
     newDate.setHours(+timeArray[0],+timeArray[1]);
 
     let newReservation: ReservationType = {
@@ -89,7 +87,9 @@ export class ReservationEditComponent implements OnInit {
   }
 
   getReservation(): void{
+
     this.reservationId = this.activatedRoute.snapshot.params['id'];
+
     this.reservationsService.getReservation(this.reservationId).subscribe(response => {
       this.reservation = response;
 
@@ -124,7 +124,7 @@ export class ReservationEditComponent implements OnInit {
           Validators.pattern(/^[0-9]*$/)
         ])),
         additionalInformation: new FormControl(response.reservationAdditionalInfo)
-      }, [dateMatch('date'),
+      }, [dateMatch('date', 'time'),
           timeMatch('date', 'time'),
           textareaToLong('additionalInformation'),
           phoneToShort('phone'),
@@ -133,7 +133,6 @@ export class ReservationEditComponent implements OnInit {
   }
 
   goBack(): void {
-    console.log("Back clicked");
     this.location.back();
   }
 

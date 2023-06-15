@@ -18,7 +18,6 @@ export class ReservationsComponent implements OnInit {
   }
 
   deleteReservation(id: string):void {
-    console.log(`Usuwam ${id}`);
     this.reservationsService.deleteReservation(id).subscribe(response => {
       this.getReservations();
     });

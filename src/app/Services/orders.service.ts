@@ -13,33 +13,33 @@ import { Statuses } from '../Models/status';
 
 export class OrdersService {
 
-  private _products!: Product[];
+  products!: Product[];
 
-  private _orders!: Order[];
-  private _ordersChange: Subject<Order[]> = new Subject<Order[]>();
+  orders!: Order[];
+  ordersChange: Subject<Order[]> = new Subject<Order[]>();
 
-  private _waiting!: Order[];
-  private _waitingChange: Subject<Order[]> = new Subject<Order[]>();
+  waiting!: Order[];
+  waitingChange: Subject<Order[]> = new Subject<Order[]>();
 
-  private _newOrder: Order = new Order('', [], '', 0);
+  newOrder: Order = new Order('', [], '', 0);
 
-  private _newOrderProductsArray: OrderedProduct[] = [];
-  private _newOrderProductsArrayDataChange: Subject<OrderedProduct[]> = new Subject<OrderedProduct[]>();
+  newOrderProductsArray: OrderedProduct[] = [];
+  newOrderProductsArrayDataChange: Subject<OrderedProduct[]> = new Subject<OrderedProduct[]>();
 
-  private _productsBackUp!: OrderedProduct[];
-  private _totalBackUp!: number;
-  private _togglesBackUp!: boolean[];
+  productsBackUp!: OrderedProduct[];
+  totalBackUp!: number;
+  togglesBackUp!: boolean[];
 
-  private _totalPrice: number = 0;
-  private _totalPriceChange: Subject<number> = new Subject<number>();
+  totalPrice: number = 0;
+  totalPriceChange: Subject<number> = new Subject<number>();
 
-  private _buttonToggles: boolean[] = [];
-  private _buttonTogglesChange: Subject<boolean[]> = new Subject<boolean[]>();
+  buttonToggles: boolean[] = [];
+  buttonTogglesChange: Subject<boolean[]> = new Subject<boolean[]>();
 
-  private _editMode: boolean = false;
-  private _editModeChange: Subject<boolean> = new Subject<boolean>();
+  editMode: boolean = false;
+  editModeChange: Subject<boolean> = new Subject<boolean>();
 
-  private _editOrderId!: string;
+  editOrderId!: string;
 
   constructor(private http: HttpClient) {
 
@@ -52,7 +52,7 @@ export class OrdersService {
     })
 
     this.totalPriceChange.subscribe((value) => {
-      this._totalPrice = +value.toFixed(2);
+      this.totalPrice = +value.toFixed(2);
     });
 
     this.buttonTogglesChange.subscribe((value) => {
@@ -84,12 +84,10 @@ export class OrdersService {
 
   toggleEditMode(display: boolean): void {
     this.editModeChange.next(display);
-    console.log("Edit mode change");
-    console.log(this.editMode);
   }
 
   loadToEdit(order: Order): void {
-    this.productsBackUp = this._newOrderProductsArray;
+    this.productsBackUp = this.newOrderProductsArray;
     this.totalBackUp = this.totalPrice;
     this.togglesBackUp = this.buttonToggles;
 
@@ -108,8 +106,6 @@ export class OrdersService {
     productsArray.forEach(product => {
       editToggles[+product.productId] = true;
     })
-
-    console.log(editToggles);
 
     this.editOrderId = order.orderId;
 
@@ -135,15 +131,13 @@ export class OrdersService {
       }
     });
 
-    let newOrdersArray = this.orders;
+    let newOrdersArray: Order[] = this.orders;
 
     newOrdersArray[newOrdersArray.findIndex(v =>
       v.orderId === order.orderId)].products = this.newOrderProductsArray;
 
     newOrdersArray[newOrdersArray.findIndex(v =>
       v.orderId === order.orderId)].total = this.totalPrice;
-
-
 
     let orderedProducts: OrderedProductType[] = this.convertToOrderProductType(order.products);
 
@@ -156,7 +150,6 @@ export class OrdersService {
     };
 
     this.editOrder(orderType).subscribe(response => {
-      console.log("Order edited");
       this.changeOrders(newOrdersArray);
       this.loadPrevious();
     });
@@ -165,14 +158,14 @@ export class OrdersService {
 
   changeStatus(order: Order, status: string): void {
 
-    let newOrdersArray = this.orders;
+    let newOrdersArray: Order[] = this.orders;
 
     newOrdersArray[newOrdersArray.findIndex(v =>
       v.orderId === order.orderId)].status = status;
 
     order.status = status;
 
-    let inputProductsArray = order.products;
+    let inputProductsArray: OrderedProduct[] = order.products;
     let orderedProducts: OrderedProductType[] = this.convertToOrderProductType(inputProductsArray);
 
     let orderType: OrderType = {
@@ -183,7 +176,6 @@ export class OrdersService {
     }
 
     this.editOrder(orderType).subscribe(response => {
-      console.log("Order edited");
       this.changeOrders(newOrdersArray);
     });
   }
@@ -216,7 +208,7 @@ export class OrdersService {
         productCategory: orderedProduct.product.productCategory
       }
 
-      let newOrderedProduct = {
+      let newOrderedProduct: OrderedProductType = {
         product: newProductType,
         quantity: orderedProduct.quantity
       }
@@ -257,8 +249,6 @@ export class OrdersService {
   }
 
   getNewId(): string {
-    console.log("Robię nowe ID");
-    console.log(this.orders);
     let indexes: number[] = [];
     this.orders.forEach(order => {
       indexes.push(+order.orderId);
@@ -281,18 +271,18 @@ export class OrdersService {
   }
 
   sumChange(sum: number): void{
-    this._totalPriceChange.next(sum);
+    this.totalPriceChange.next(sum);
   }
 
   increase(product: OrderedProduct): void {
-    this._newOrderProductsArray[this.newOrderProductsArray.findIndex((element) => {
+    this.newOrderProductsArray[this.newOrderProductsArray.findIndex((element) => {
       return element.product.productId === product.product.productId
     })].quantity++;
     this.sumChange(+(this.totalPrice + product.product.productPrice).toFixed(2));
   }
 
   decrease(product: OrderedProduct): void {
-    this._newOrderProductsArray[this.newOrderProductsArray.findIndex((element) => {
+    this.newOrderProductsArray[this.newOrderProductsArray.findIndex((element) => {
       return element.product.productId === product.product.productId
     })].quantity--;
     this.sumChange(+(this.totalPrice - product.product.productPrice).toFixed(2));
@@ -416,7 +406,7 @@ export class OrdersService {
 
   deleteOrder(order: Order): Observable<void> {
 
-    const url = `http://localhost:7777/orders/${order.orderId}`;
+    const url: string = `http://localhost:7777/orders/${order.orderId}`;
     let response: Observable<void> = this.http.delete<void>(url).pipe(
       tap(_ => {
         this.log(`Order deleted`);
@@ -436,7 +426,7 @@ export class OrdersService {
   }
 
   editOrder(order: OrderType): Observable<OrderType> {
-    const url = `http://localhost:7777/orders/${order.orderId}`;
+    const url:string = `http://localhost:7777/orders/${order.orderId}`;
     return this.http.put<Order>(url, order).pipe(
       tap((newReservation: OrderType) => this.log(`edited user w/ id=${order.orderId}`)),
       catchError(this.handleError<OrderType>('editReservation'))
@@ -484,138 +474,9 @@ export class OrdersService {
 
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
-
       console.error(error);
       this.log(`${operation} failed: ${error.message}`);
       return of(result as T);
     };
-  }
-
-  // ---- Getters and setters ---- //
-
-  public get products(): Product[] {
-    return this._products;
-  }
-  public set products(value: Product[]) {
-    this._products = value;
-  }
-
-  public get newOrder(): Order {
-    return this._newOrder;
-  }
-  public set newOrder(value: Order) {
-    this._newOrder = value;
-  }
-
-  public get newOrderProductsArray(): OrderedProduct[] {
-    return this._newOrderProductsArray;
-  }
-  public set newOrderProductsArray(value: OrderedProduct[]) {
-    this._newOrderProductsArray = value;
-  }
-
-  public get newOrderProductsArrayDataChange(): Subject<OrderedProduct[]> {
-    return this._newOrderProductsArrayDataChange;
-  }
-  public set newOrderProductsArrayDataChange(value: Subject<OrderedProduct[]>) {
-    this._newOrderProductsArrayDataChange = value;
-  }
-
-  public get totalPrice(): number {
-    return this._totalPrice;
-  }
-  public set totalPrice(value: number) {
-    this._totalPrice = value;
-  }
-
-  public get totalPriceChange(): Subject<number> {
-    return this._totalPriceChange;
-  }
-  public set totalPriceChange(value: Subject<number>) {
-    this._totalPriceChange = value;
-  }
-
-  public get buttonToggles(): boolean[] {
-    return this._buttonToggles;
-  }
-  public set buttonToggles(value: boolean[]) {
-    this._buttonToggles = value;
-  }
-
-  public get buttonTogglesChange(): Subject<boolean[]> {
-    return this._buttonTogglesChange;
-  }
-  public set buttonTogglesChange(value: Subject<boolean[]>) {
-    this._buttonTogglesChange = value;
-  }
-
-  public get orders(): Order[] {
-    return this._orders;
-  }
-  public set orders(value: Order[]) {
-    this._orders = value;
-  }
-
-  public get ordersChange(): Subject<Order[]> {
-    return this._ordersChange;
-  }
-  public set ordersChange(value: Subject<Order[]>) {
-    this._ordersChange = value;
-  }
-
-  public get productsBackUp(): OrderedProduct[] {
-    return this._productsBackUp;
-  }
-  public set productsBackUp(value: OrderedProduct[]) {
-    this._productsBackUp = value;
-  }
-
-  public get editModeChange(): Subject<boolean> {
-    return this._editModeChange;
-  }
-  public set editModeChange(value: Subject<boolean>) {
-    this._editModeChange = value;
-  }
-
-  public get editMode(): boolean {
-    return this._editMode;
-  }
-  public set editMode(value: boolean) {
-    this._editMode = value;
-  }
-
-  public get editOrderId(): string {
-    return this._editOrderId;
-  }
-  public set editOrderId(value: string) {
-    this._editOrderId = value;
-  }
-
-  public get totalBackUp(): number {
-    return this._totalBackUp;
-  }
-  public set totalBackUp(value: number) {
-    this._totalBackUp = value;
-  }
-
-  public get togglesBackUp(): boolean[] {
-    return this._togglesBackUp;
-  }
-  public set togglesBackUp(value: boolean[]) {
-    this._togglesBackUp = value;
-  }
-
-  public get waitingChange(): Subject<Order[]> {
-    return this._waitingChange;
-  }
-  public set waitingChange(value: Subject<Order[]>) {
-    this._waitingChange = value;
-  }
-
-  public get waiting(): Order[] {
-    return this._waiting;
-  }
-  public set waiting(value: Order[]) {
-    this._waiting = value;
   }
 }

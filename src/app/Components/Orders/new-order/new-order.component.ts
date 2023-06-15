@@ -15,13 +15,13 @@ import { OrdersService } from 'src/app/Services/orders.service';
 })
 export class NewOrderComponent implements OnInit, OnDestroy {
 
-  private sumChangeSubscription!: Subscription;
-  private editModeChangeSubscription!: Subscription;
+  sumChangeSubscription!: Subscription;
+  editModeChangeSubscription!: Subscription;
 
-  private _saveConfirm: boolean = false;
-  private _total: number = 0;
-  private _editMode: boolean = false;
-  private _editOrderId!: string;
+  saveConfirm: boolean = false;
+  total: number = 0;
+  editMode: boolean = false;
+  editOrderId!: string;
 
   constructor(private ordersService: OrdersService, private router: Router) { }
 
@@ -67,36 +67,4 @@ export class NewOrderComponent implements OnInit, OnDestroy {
     this.ordersService.saveEdit();
     this.router.navigateByUrl('home');
   }
-
-  // -------- Getters/Setters ------- //
-
-  public get total(): number {
-    return this._total;
-  }
-
-  public set total(value: number) {
-    this._total = value;
-  }
-
-  public get saveConfirm(): boolean {
-    return this._saveConfirm;
-  }
-  public set saveConfirm(value: boolean) {
-    this._saveConfirm = value;
-  }
-
-  public get editMode(): boolean {
-    return this._editMode;
-  }
-  public set editMode(value: boolean) {
-    this._editMode = value;
-  }
-
-  public get editOrderId(): string {
-    return this._editOrderId;
-  }
-  public set editOrderId(value: string) {
-    this._editOrderId = value;
-  }
-
 }

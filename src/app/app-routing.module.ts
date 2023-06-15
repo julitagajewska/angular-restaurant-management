@@ -25,7 +25,6 @@ const routes: Routes = [
   { path: "orders", component: OrdersComponent, canActivate: [LoggedInGuard] },
   { path: "user_profile", component: ProfileComponent, canActivate: [LoggedInGuard] },
 
-
   { path: "login", component: LoginComponent, canActivate: [AlreadyLoggedInGuard] },
   { path: "register", component: RegisterComponent, canActivate: [AlreadyLoggedInGuard] },
 

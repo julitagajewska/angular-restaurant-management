@@ -13,17 +13,17 @@ import { hasLowerCaseLetter, hasNumber, hasSpecialCharacter, hasUpperCaseLetter,
 })
 export class ProfileChangePasswordComponent implements OnInit, OnDestroy {
 
-  private _userSubscription!: Subscription;
-  private _editPasswordForm!: FormGroup;
-  private _user: User;
-  private _passwordChangedAllert: boolean = false;
+  userSubscription!: Subscription;
+  editPasswordForm!: FormGroup;
+  user: User;
+  passwordChangedAllert: boolean = false;
 
   constructor(
     private router: Router,
     private usersService: UsersService
   ) {
 
-    this._user = this.usersService.loggedInUser;
+    this.user = this.usersService.loggedInUser;
 
     this.userSubscription = this.usersService.userChange.subscribe(value => {
       this.user = value;
@@ -56,7 +56,7 @@ export class ProfileChangePasswordComponent implements OnInit, OnDestroy {
   }
 
   getField(field: any): AbstractControl | null{
-    return this._editPasswordForm.get(field);
+    return this.editPasswordForm.get(field);
   }
 
   changePassword(): void {
@@ -71,46 +71,14 @@ export class ProfileChangePasswordComponent implements OnInit, OnDestroy {
 
     this.usersService.saveEditChanges(newUser);
     this.passwordChangedAllert = true;
-
   }
 
   clickedOutside(): void {
     this.passwordChangedAllert = false;
-    console.log("Clicked outisde");
   }
 
   return(): void {
     this.router.navigateByUrl('user_profile');
-  }
-
-
-  get editPasswordForm(): FormGroup {
-    return this._editPasswordForm;
-  }
-
-  public set editPasswordForm(value: FormGroup) {
-    this._editPasswordForm = value;
-  }
-
-  public get user(): User {
-    return this._user;
-  }
-  public set user(value: User) {
-    this._user = value;
-  }
-
-  public get userSubscription(): Subscription {
-    return this._userSubscription;
-  }
-  public set userSubscription(value: Subscription) {
-    this._userSubscription = value;
-  }
-
-  public get passwordChangedAllert(): boolean {
-    return this._passwordChangedAllert;
-  }
-  public set passwordChangedAllert(value: boolean) {
-    this._passwordChangedAllert = value;
   }
 
 }

@@ -45,7 +45,6 @@ export class User {
     this._phone = value;
   }
 
-
   public get password(): string {
     return this._password;
   }

@@ -15,7 +15,6 @@ export class AlreadyLoggedInGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
       if(this.usersService.isLoggedIn == false) {
-        console.log(this.usersService.isLoggedIn);
         return true;
       }
 
@@ -29,8 +28,5 @@ export class AlreadyLoggedInGuard implements CanActivate {
           }
           })
         );
-
   }
-
-
 }

@@ -16,7 +16,7 @@ export class ReservationsFormComponent implements OnInit {
 
   formModel!: FormGroup;
 
-  private _addedReservationsAlert: boolean = false;
+  addedReservationsAlert: boolean = false;
 
   @Input('newIdParentData') newId!: string;
   @Output ('newReservation') newReservationEmitter:EventEmitter<ReservationType> = new EventEmitter();
@@ -48,7 +48,7 @@ export class ReservationsFormComponent implements OnInit {
         Validators.pattern(/^[0-9]*$/)
       ])),
       additionalInformation: new FormControl(''),
-    },[dateMatch('date'),
+    },[dateMatch('date', 'time'),
        timeMatch('date', 'time'),
        textareaToLong('additionalInformation'),
        phoneToShort('phone'),
@@ -60,8 +60,8 @@ export class ReservationsFormComponent implements OnInit {
   }
 
   addReservation(): void {
-    let newDate = new Date(this.formModel.value.date);
-    let timeArray = this.formModel.value.time.split(":");
+    let newDate: Date = new Date(this.formModel.value.date);
+    let timeArray: string[] = this.formModel.value.time.split(":");
     newDate.setHours(+timeArray[0],+timeArray[1]);
 
     let newReservation: ReservationType = {
@@ -84,13 +84,6 @@ export class ReservationsFormComponent implements OnInit {
 
   clickedOutside(): void {
     this.addedReservationsAlert = false;
-  }
-
-  public get addedReservationsAlert(): boolean {
-    return this._addedReservationsAlert;
-  }
-  public set addedReservationsAlert(value: boolean) {
-    this._addedReservationsAlert = value;
   }
 }
 

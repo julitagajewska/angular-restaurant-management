@@ -16,8 +16,6 @@ export class ReservationsTableRowComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log(`Table row: ${this.reservation.reservationId}`);
-    console.log(this.reservation);
   }
 
   deleteReservationEmitter(id: string): void {

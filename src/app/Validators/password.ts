@@ -4,9 +4,9 @@ import { pass } from "ngx-bootstrap-icons";
 export function hasNumber(password: string) {
   return function(form: AbstractControl) {
     const regex: RegExp = new RegExp(/\d/);
-    const passwordValue = form.get(password)?.value;
+    const passwordValue:string = form.get(password)?.value;
 
-    const valid = regex.test(passwordValue);
+    const valid: boolean = regex.test(passwordValue);
 
     return valid ? null : { hasNumberError: true };
   }
@@ -15,9 +15,9 @@ export function hasNumber(password: string) {
 export function hasUpperCaseLetter(password: string) {
   return function(form: AbstractControl) {
     const regex: RegExp = new RegExp(/[A-Z]/);
-    const passwordValue = form.get(password)?.value;
+    const passwordValue:string = form.get(password)?.value;
 
-    const valid = regex.test(passwordValue);
+    const valid:boolean = regex.test(passwordValue);
 
     return valid ? null : { hasUpperCaseLetterError: true };
   }
@@ -26,9 +26,9 @@ export function hasUpperCaseLetter(password: string) {
 export function hasLowerCaseLetter(password: string) {
   return function(form: AbstractControl) {
     const regex: RegExp = new RegExp(/[a-z]/);
-    const passwordValue = form.get(password)?.value;
+    const passwordValue: string = form.get(password)?.value;
 
-    const valid = regex.test(passwordValue);
+    const valid: boolean = regex.test(passwordValue);
 
     return valid ? null : { hasLowerCaseLetterError: true };
   }
@@ -37,7 +37,7 @@ export function hasLowerCaseLetter(password: string) {
 export function hasSpecialCharacter(password: string) {
   return function(form: AbstractControl) {
     const regex: RegExp = new RegExp(/[\!@#$%^&*()\\[\]{}\-_+=~`|:;"'<>,./?]/);
-    const passwordValue = form.get(password)?.value;
+    const passwordValue: string = form.get(password)?.value;
 
     const valid: boolean = regex.test(passwordValue);
 
@@ -47,7 +47,7 @@ export function hasSpecialCharacter(password: string) {
 
 export function tooShort(password: string){
   return function(form: AbstractControl) {
-    const passwordValue = form.get(password)?.value;
+    const passwordValue: string = form.get(password)?.value;
     let valid!: boolean;
     if(passwordValue.length < 5) { valid = false }
 
@@ -57,8 +57,8 @@ export function tooShort(password: string){
 
 export function passwordMatch(password: string, confirmPassword: string){
   return function(form: AbstractControl) {
-    const passwordValue = form.get(password)?.value;
-    const confirmPasswordValue = form.get(confirmPassword)?.value;
+    const passwordValue: string = form.get(password)?.value;
+    const confirmPasswordValue: string = form.get(confirmPassword)?.value;
 
     if(passwordValue === confirmPasswordValue){
       return null;

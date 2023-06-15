@@ -37,8 +37,6 @@ import { TodayReservationsRowComponent } from './Components/Home/today-reservati
 import { OrdersTableComponent } from './Components/Home/orders-table/orders-table.component';
 import { OrdersTableRowComponent } from './Components/Home/orders-table-row/orders-table-row.component';
 import { StatusColorDirective } from './Directives/status-color.directive';
-import { OrderOverviewDirective } from './Directives/order-overview.directive';
-import { HeaderButtonToggleDirective } from './Directives/header-button-toggle.directive';
 import { AccessDeniedComponent } from './Components/General/access-denied/access-denied.component';
 import { NotFoundComponent } from './Components/General/not-found/not-found.component';
 import { AlreadyLoggedInComponent } from './Components/General/already-logged-in/already-logged-in.component';
@@ -74,8 +72,6 @@ import { WelcomeComponent } from './Components/General/welcome/welcome.component
     OrdersTableComponent,
     OrdersTableRowComponent,
     StatusColorDirective,
-    OrderOverviewDirective,
-    HeaderButtonToggleDirective,
     AccessDeniedComponent,
     NotFoundComponent,
     AlreadyLoggedInComponent,

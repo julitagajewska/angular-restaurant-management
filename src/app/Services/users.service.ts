@@ -9,14 +9,14 @@ import { pass } from 'ngx-bootstrap-icons';
 })
 export class UsersService {
 
-  private url: string = "http://localhost:7777/users";
-  private _defaultUserImage: string = "https://plusvalleyadventure.com/wp-content/uploads/2020/11/default-user-icon-8.jpg";
+  url: string = "http://localhost:7777/users";
+  defaultUserImage: string = "https://plusvalleyadventure.com/wp-content/uploads/2020/11/default-user-icon-8.jpg";
 
-  private _isLoggedIn!: boolean;
-  private _loggedInChange: Subject<boolean> = new Subject<boolean>();
+  isLoggedIn!: boolean;
+  loggedInChange: Subject<boolean> = new Subject<boolean>();
 
-  private _loggedInUser!: User;
-  private _userChange: Subject<User> = new Subject<User>();
+  loggedInUser!: User;
+  userChange: Subject<User> = new Subject<User>();
 
   users!: User[];
 
@@ -31,22 +31,22 @@ export class UsersService {
     })
 
     this.loggedInChange.subscribe((value) => {
-      this._isLoggedIn = value;
+      this.isLoggedIn = value;
     });
 
 
     this.userChange.subscribe((value) => {
-      this._loggedInUser = value;
+      this.loggedInUser = value;
     });
 
 
     this.loadLoggedInUser().subscribe(response => {
       console.log(response);
       if(response == null){
-        this._loggedInChange.next(false);
+        this.loggedInChange.next(false);
       } else if (response != null) {
         console.log(response);
-        this._loggedInUser = new User(
+        this.loggedInUser = new User(
           response.userId,
           response.username,
           response.mail,
@@ -55,18 +55,12 @@ export class UsersService {
           response.imageURL
         );
 
-        if(this._loggedInUser != null){
-          this.logIn(this._loggedInUser.username);
-          console.log(this._isLoggedIn);
+        if(this.loggedInUser != null){
+          this.logIn(this.loggedInUser.username);
         }
       }
     });
   }
-
-  get userChange(): Observable<User> {
-    return this._userChange.asObservable();
-  }
-
 
   loadLoggedInUser(): Observable<User> {
     let url: string = "http://localhost:7777/loggedIn";
@@ -76,36 +70,13 @@ export class UsersService {
   }
 
   userChangedValue(user: User): void{
-    this._userChange.next(user);
-  }
-
-  get loggedInChange(): Observable<boolean> {
-    return this._loggedInChange.asObservable();
-  }
-
-  public get isLoggedIn(): boolean {
-    return this._isLoggedIn;
-  }
-  public set isLoggedIn(value: boolean) {
-    this._isLoggedIn = value;
-  }
-
-  get defaultUserImage(): string {
-    return this._defaultUserImage;
-  }
-
-  get loggedInUser(): User {
-    return this._loggedInUser;
-  }
-
-  public set loggedInUser(value: User) {
-    this._loggedInUser = value;
+    this.userChange.next(user);
   }
 
   logIn(username: string) {
     let addUser: UserType;
 
-    let user: User | any = this.users.filter(element => {
+    this.users.filter(element => {
       if(element.username == username){
         addUser = {
           userId: element.userId,
@@ -118,8 +89,8 @@ export class UsersService {
 
           console.log("Adding user");
           this.addLoggedInUser(addUser).subscribe(response => {
-           this._loggedInUser = element;
-           this._loggedInChange.next(true);
+           this.loggedInUser = element;
+           this.loggedInChange.next(true);
           });
       }
       return element.username == username;
@@ -127,14 +98,14 @@ export class UsersService {
   }
 
   logOut() {
-    this._loggedInChange.next(false);
+    this.loggedInChange.next(false);
     this.deleteLoggedInUser().subscribe(response => {
       console.log("Logged out");
     });
   }
 
   addLoggedInUser(user: UserType): Observable<UserType> {
-    const url = `http://localhost:7777/loggedIn`;
+    const url:string = `http://localhost:7777/loggedIn`;
     return this.http.post<void>(url, user).pipe(
       tap(_ => this.log(`Logged in user added`)),
       catchError(this.handleError<any>('addLoggedIn'))
@@ -142,7 +113,7 @@ export class UsersService {
   }
 
   deleteUserAccount(user: User): Observable<void>{
-    const url = `http://localhost:7777/users/${user.userId}`;
+    const url:string = `http://localhost:7777/users/${user.userId}`;
     return this.http.delete<void>(url).pipe(
       tap(_ => this.log(`Logged in user deleted`)),
       catchError(this.handleError<any>('deleteLoggedIn'))
@@ -150,7 +121,7 @@ export class UsersService {
   }
 
   deleteLoggedInUser(): Observable<void> {
-    const url = `http://localhost:7777/loggedIn`;
+    const url:string = `http://localhost:7777/loggedIn`;
     return this.http.delete<void>(url).pipe(
       tap(_ => this.log(`Logged in user deleted`)),
       catchError(this.handleError<any>('deleteLoggedIn'))
@@ -179,7 +150,7 @@ export class UsersService {
 
     let userPassword: string = '';
 
-    let user: User | any = this.users.filter(element => {
+    this.users.filter(element => {
       if(element.username == username){
         userPassword = element.password;
       }
@@ -238,7 +209,7 @@ export class UsersService {
   }
 
   editUser(user: UserType): Observable<UserType> {
-    const url = `http://localhost:7777/users/${user.userId}`;
+    const url:string = `http://localhost:7777/users/${user.userId}`;
     return this.http.put<User>(url, user).pipe(
       tap((newReservation: UserType) => this.log(`edited user w/ id=${user.userId}`)),
       catchError(this.handleError<UserType>('editReservation'))
@@ -246,7 +217,7 @@ export class UsersService {
   }
 
   editLoggedInUser(user: UserType): Observable<UserType>{
-    const url = `http://localhost:7777/loggedIn/${user.userId}`;
+    const url:string = `http://localhost:7777/loggedIn/${user.userId}`;
     return this.http.put<User>(url, user).pipe(
       tap((newReservation: UserType) => this.log(`edited logged user w/ id=${user.userId}`)),
       catchError(this.handleError<UserType>('editReservation'))
@@ -284,11 +255,9 @@ export class UsersService {
 
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
-
       console.error(error);
       this.log(`${operation} failed: ${error.message}`);
       return of(result as T);
     };
   }
-
 }

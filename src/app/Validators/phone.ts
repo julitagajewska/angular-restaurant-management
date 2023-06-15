@@ -2,7 +2,7 @@ import { AbstractControl } from "@angular/forms";
 
 export function phoneToLong(phone: string){
   return function(form: AbstractControl) {
-    const input = form.get(phone)?.value;
+    const input: string = form.get(phone)?.value;
 
     if(input.length > 15){
       return { phoneToLongError: true };
@@ -15,7 +15,7 @@ export function phoneToLong(phone: string){
 
 export function phoneToShort(phone: string){
   return function(form: AbstractControl) {
-    const input = form.get(phone)?.value;
+    const input: string = form.get(phone)?.value;
 
     if(input.length < 9){
       return { phoneToShortError: true };

@@ -62,7 +62,7 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  get isLogedIn(): boolean {
+  isLogedIn(): boolean {
     return this.userService.isLoggedIn;
   }
 
