@@ -1,0 +1,254 @@
+[
+    {
+        "productId": "1",
+        "productName": "Tost z awokado",
+        "productPrice": 14.99,
+        "productImage": "../assets/Images/Mains/egg_toast.jpg",
+        "productCategory": "Danie główne"
+    },
+    {
+        "productId": "2",
+        "productName": "Pizza",
+        "productPrice": 24.99,
+        "productImage": "../assets/Images/Mains/pizza.jpg",
+        "productCategory": "Danie główne"
+    },
+    {
+        "productId": "3",
+        "productName": "Tortilla wrap",
+        "productPrice": 14.99,
+        "productImage": "../assets/Images/Mains/tortilla-wrap.jpg",
+        "productCategory": "Danie główne"
+    },
+    {
+        "productId": "4",
+        "productName": "Lasagne",
+        "productPrice": 25.99,
+        "productImage": "../assets/Images/Mains/lasagna.jpg",
+        "productCategory": "Danie główne"
+    },
+    {
+        "productId": "5",
+        "productName": "Pieczona ryba",
+        "productPrice": 25.99,
+        "productImage": "../assets/Images/Mains/fish.jpg",
+        "productCategory": "Danie główne"
+    },
+    {
+        "productId": "6",
+        "productName": "Sałatka z awokado",
+        "productPrice": 29.99,
+        "productImage": "../assets/Images/Mains/salad.jpg",
+        "productCategory": "Danie główne"
+    },
+    {
+        "productId": "7",
+        "productName": "Ramen",
+        "productPrice": 34.99,
+        "productImage": "../assets/Images/Mains/ramen.jpg",
+        "productCategory": "Danie główne"
+    },
+    {
+        "productId": "8",
+        "productName": "Stek",
+        "productPrice": 69.99,
+        "productImage": "../assets/Images/Mains/steak.jpg",
+        "productCategory": "Danie główne"
+    },
+    {
+        "productId": "9",
+        "productName": "Sushi",
+        "productPrice": 59.99,
+        "productImage": "../assets/Images/Mains/sushi.jpg",
+        "productCategory": "Danie główne"
+    },
+    {
+        "productId": "10",
+        "productName": "Ciasto owocowe",
+        "productPrice": 18.99,
+        "productImage": "../assets/Images/Desserts/cake_1.jpg",
+        "productCategory": "Deser"
+    },
+    {
+        "productId": "11",
+        "productName": "Ciasto czekoladowe",
+        "productPrice": 19.99,
+        "productImage": "../assets/Images/Desserts/cake_2.jpg",
+        "productCategory": "Deser"
+    },
+    {
+        "productId": "12",
+        "productName": "Babeczka karmelowa",
+        "productPrice": 9.99,
+        "productImage": "../assets/Images/Desserts/caramel_cupcake.jpg",
+        "productCategory": "Deser"
+    },
+    {
+        "productId": "13",
+        "productName": "Ciastko czekoladowe",
+        "productPrice": 9.99,
+        "productImage": "../assets/Images/Desserts/cookies_1.jpg",
+        "productCategory": "Deser"
+    },
+    {
+        "productId": "14",
+        "productName": "Croissant",
+        "productPrice": 59.99,
+        "productImage": "../assets/Images/Desserts/croissant.jpg",
+        "productCategory": "Deser"
+    },
+    {
+        "productId": "15",
+        "productName": "Lody truskawkowe",
+        "productPrice": 8.99,
+        "productImage": "../assets/Images/Desserts/ice_crea_2.jpg",
+        "productCategory": "Deser"
+    },
+    {
+        "productId": "16",
+        "productName": "Cisto malinowe",
+        "productPrice": 17.99,
+        "productImage": "../assets/Images/Desserts/cake_3.jpg",
+        "productCategory": "Deser"
+    },
+    {
+        "productId": "17",
+        "productName": "Babeczka czekoladowa",
+        "productPrice": 10.99,
+        "productImage": "../assets/Images/Desserts/chocolate_cupcake.jpg",
+        "productCategory": "Deser"
+    },
+    {
+        "productId": "18",
+        "productName": "Lody malinowe",
+        "productPrice": 9.99,
+        "productImage": "../assets/Images/Desserts/ice_cream_1.jpg",
+        "productCategory": "Deser"
+    },
+    {
+        "productId": "19",
+        "productName": "Grillowana kanapka",
+        "productPrice": 16.99,
+        "productImage": "../assets/Images/Entrees/grilled_sandwich.jpg",
+        "productCategory": "Przystawka"
+    },
+    {
+        "productId": "20",
+        "productName": "Frytki",
+        "productPrice": 10.99,
+        "productImage": "../assets/Images/Entrees/fries.jpg",
+        "productCategory": "Przystawka"
+    },
+    {
+        "productId": "21",
+        "productName": "Guacamole",
+        "productPrice": 19.99,
+        "productImage": "../assets/Images/Entrees/guacamole.jpg",
+        "productCategory": "Przystawka"
+    },
+    {
+        "productId": "22",
+        "productName": "Krążki cebulowe",
+        "productPrice": 12.99,
+        "productImage": "../assets/Images/Entrees/onion_rings.jpg",
+        "productCategory": "Przystawka"
+    },
+    {
+        "productId": "23",
+        "productName": "Kanapki z łososiem",
+        "productPrice": 15.99,
+        "productImage": "../assets/Images/Entrees/salmon_sandwich.jpg",
+        "productCategory": "Przystawka"
+    },
+    {
+        "productId": "24",
+        "productName": "Krem z dyni",
+        "productPrice": 17.99,
+        "productImage": "../assets/Images/Entrees/soup_1.jpg",
+        "productCategory": "Przystawka"
+    },
+    {
+        "productId": "25",
+        "productName": "Krem paprykowy",
+        "productPrice": 18.99,
+        "productImage": "../assets/Images/Entrees/soup_3.jpg",
+        "productCategory": "Przystawka"
+    },
+    {
+        "productId": "26",
+        "productName": "Tacos",
+        "productPrice": 20.99,
+        "productImage": "../assets/Images/Entrees/tacos.jpg",
+        "productCategory": "Przystawka"
+    },
+    {
+        "productId": "27",
+        "productName": "Spaghett",
+        "productPrice": 19.99,
+        "productImage": "../assets/Images/Entrees/spaghetti.jpg",
+        "productCategory": "Przystawka"
+    },
+    {
+        "productId": "28",
+        "productName": "Zimowe latte",
+        "productPrice": 15.99,
+        "productImage": "../assets/Images/Beverages/winter_latte.jpg",
+        "productCategory": "Napój"
+    },
+    {
+        "productId": "29",
+        "productName": "Espresso",
+        "productPrice": 9.99,
+        "productImage": "../assets/Images/Beverages/espresso.jpg",
+        "productCategory": "Napój"
+    },
+    {
+        "productId": "30",
+        "productName": "Lemoniada",
+        "productPrice": 12.99,
+        "productImage": "../assets/Images/Beverages/lemonade.jpg",
+        "productCategory": "Napój"
+    },
+    {
+        "productId": "31",
+        "productName": "Woda z pomarańczą",
+        "productPrice": 8.99,
+        "productImage": "../assets/Images/Beverages/orange_water.jpg",
+        "productCategory": "Napój"
+    },
+    {
+        "productId": "32",
+        "productName": "Shake Oreo",
+        "productPrice": 18.99,
+        "productImage": "../assets/Images/Beverages/oreo_shake.jpg",
+        "productCategory": "Napój"
+    },
+    {
+        "productId": "33",
+        "productName": "Cappuccino",
+        "productPrice": 12.99,
+        "productImage": "../assets/Images/Beverages/cappuccino.jpg",
+        "productCategory": "Napój"
+    },
+    {
+        "productId": "34",
+        "productName": "Mrożona kawa",
+        "productPrice": 18.99,
+        "productImage": "../assets/Images/Beverages/iced_coffee.jpg",
+        "productCategory": "Napój"
+    },
+    {
+        "productId": "35",
+        "productName": "Mrożona herbata",
+        "productPrice": 10.99,
+        "productImage": "../assets/Images/Beverages/ice_tea.jpg",
+        "productCategory": "Napój"
+    },
+    {
+        "productId": "36",
+        "productName": "Zimowa herbata",
+        "productPrice": 19.99,
+        "productImage": "../assets/Images/Beverages/winter_tea.jpg",
+        "productCategory": "Napój"
+    }
+]
