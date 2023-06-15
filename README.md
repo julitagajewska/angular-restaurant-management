@@ -1,27 +1,63 @@
-# Projekt
+# Restaurant management
+### A handy helper for restaurant employees
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.6.
+### Description
+It's the first ever appliacation I've ever written in Angular. The app provides support for reservations management, taking orders and tracking their status. The most important information about today's reservations and waiting orders is displayed on the homepage. The program also allows the users to create and modify their own profiles.
 
-## Development server
+### Fetures
+- User's profile creation and management
+- Reservations handling
+- Orders processing
+- Filtering the dishes available on the menu
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+### Screenshots
+![Screenshot -  restaurant management - homepage](https://github.com/julitagajewska/angular-restaurant-management/blob/master/screenshots/restaurant-management-screenshot-2.png)
 
-## Code scaffolding
+![Screenshot - restaurant management - new order](https://github.com/julitagajewska/angular-restaurant-management/blob/master/screenshots/restaurant-management-screenshot-1.png)
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### Used technologies
+- Angular
+- Rx.js
+- Node.js
+- Express.js
+- Bootstrap icons [https://avmaisak.github.io/ngx-bootstrap-icons/icons]
+- Angular material [https://material.angular.io/]
 
-## Build
+### How to install
+To run this project locally, please follow these steps:
+- Clone the repository:
+  ```
+  git clone https://github.com/julitagajewska/angular-restaurant-management.git
+  ```
+- Navigate to the project directory:
+  ```
+  cd angular-restaurant-management
+  ```
+- Install the dependencies:
+  ```
+  npm install
+  ```
+- While in the project directory, start the restaurant management app:
+  ```
+  npm start
+  ```
+- In a new terminal, navigate to the server directory:
+  ```
+  cd server
+  ```
+- Install the dependencies:
+  ```
+  npm install
+  ```
+- While in the server directory, start the json server:
+  ```
+  npm start
+  ```
+- Open your browser and visit http://localhost:4200 to use the app
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+### Future improvements
+Here are some potential improvements and features that can be added to the application:
+- English support
+- Responsive design
+- Dark mode
+- Accessibility improvement
